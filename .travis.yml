@@ -1,0 +1,75 @@
+---
+branches:
+  only:
+  - master
+
+# https://docs.travis-ci.com/user/multi-os/
+matrix:
+  include:
+    - os: osx
+      language: generic
+      install:
+        # Workaround for OSX.
+        - brew install libffi libyaml openssl
+        - brew link openssl --force
+        - sudo pip install -U setuptools
+        - sudo pip install ansible
+        - ansible-galaxy install FGtatsuro.python-requirements
+        - bundle install
+      env:
+        - TARGET=localhost
+        # Workaround for OSX.
+        - PYTHONPATH="/Library/Python/2.7/site-packages:$PYTHONPATH"
+    - os: linux
+      dist: trusty
+      language: python
+      python: 2.7
+      services:
+        - docker
+      addons:
+        apt:
+          packages:
+          - python-pip
+      before_script:
+        - docker run -it -d --name ${TARGET} ${IMAGE_NAME} /bin/sh
+      after_script:
+        - docker rm -f ${TARGET}
+      env:
+        - IMAGE_NAME=fgtatsuro/infra-bridgehead:debian-jessie
+        - TARGET=container
+    - os: linux
+      dist: trusty
+      language: python
+      python: 2.7
+      services:
+        - docker
+      addons:
+        apt:
+          packages:
+          - python-pip
+      before_script:
+        - docker run -it -d --name ${TARGET} ${IMAGE_NAME} /bin/sh
+      after_script:
+        - docker rm -f ${TARGET}
+      env:
+        - TARGET=container
+        - IMAGE_NAME=fgtatsuro/infra-bridgehead:alpine-3.3
+
+# This role needs sudo, thus we can't use the new container infrastructure
+# sudo: false
+sudo: required
+
+install:
+  - pip install ansible
+  # Resolve dependencies(When target role isn't installed via Ansible Galaxy, auto resolution of dependencies doesn't occur.)
+  - ansible-galaxy install FGtatsuro.python-requirements
+  - bundle install
+
+script:
+  # Basic role syntax check
+  - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
+  - ansible-playbook tests/test.yml -i tests/inventory -l ${TARGET} --extra-vars="${EXTRA_VARS}" -vvvv
+  - bundle exec rake spec SPEC_TARGET=${TARGET}
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
