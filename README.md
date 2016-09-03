@@ -20,6 +20,16 @@ Role Variables
 
 The variables we can use in this role.
 
+|name|description|type|default|
+|---|---|---|---|
+|consul_download_url|Download URL of Consul archive.|str|https://releases.hashicorp.com/consul/0.6.4/consul_0.6.4_linux_amd64.zip|
+|consul_sha256|SHA256 signature of Consul archive.|str|abdf0e1856292468e2c9971420d73b805e93888e006c76324ae39416edcf0627|
+|consul_download_tmppath|File path downloaded Consul archive is put temporary.|str|/tmp/consul.zip|
+|consul_bin_dir|Directory path Consul binary is put|str|/usr/local/bin|
+
+- These variables are valid only on Debian/Alpine Linux, and they aren't used on OSX. On OSX, latest binary is installed by Homebrew.
+- If you want to overwrite values, please check https://www.consul.io/downloads.html.
+
 Role Dependencies
 -----------------
 

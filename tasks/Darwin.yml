@@ -1,2 +1,6 @@
 ---
 # tasks file for consul(On OSX)
+- name: Install Consul with Homebrew Cask
+  homebrew:
+    name: 'consul'
+    update_homebrew: yes
