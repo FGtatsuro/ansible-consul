@@ -18,7 +18,21 @@ The dependencies on other softwares/librarys for this role.
 Role Variables
 --------------
 
-The variables we can use in this role.
+The variables we can use in this role. If you want to overwrite values, please also check https://www.consul.io/downloads.html.
+
+### Common
+
+|name|description|type|default|
+|---|---|---|---|
+|consul_config_src_dir|Directory including Consul config files on local. Config files are copied to `consul_config_remote_dir` directory on remote.|str|It isn't defined in default. No Consul config file is copied to remote.|
+|consul_config_remote_dir|Directory including Consul config files on remote. In almost cases, this value will be passed with `-config-dir` option of Consul.|str|/etc/consul.d|
+|consul_config_owner|User of `consul_config_remote_dir` directory and Consul config files under it.|str|root|
+|consul_config_group|Group of `consul_config_remote_dir` directory and Consul config files under it.|str|root|
+
+- The value of `consul_config_src_dir` is used as 'src' attribute of Ansible copy module. Thus, whether this value ends with '/' affects the behavior. (Ref. http://docs.ansible.com/ansible/copy_module.html)
+- The values of `consul_config_remote_dir`, `consul_config_owner`, and `consul_config_group` are ignored when `consul_config_src_dir` isn't defined.
+
+### Only Debian/Alpine Linux
 
 |name|description|type|default|
 |---|---|---|---|
@@ -26,9 +40,6 @@ The variables we can use in this role.
 |consul_sha256|SHA256 signature of Consul archive.|str|abdf0e1856292468e2c9971420d73b805e93888e006c76324ae39416edcf0627|
 |consul_download_tmppath|File path downloaded Consul archive is put temporary.|str|/tmp/consul.zip|
 |consul_bin_dir|Directory path Consul binary is put|str|/usr/local/bin|
-
-- These variables are valid only on Debian/Alpine Linux, and they aren't used on OSX. On OSX, latest binary is installed by Homebrew.
-- If you want to overwrite values, please check https://www.consul.io/downloads.html.
 
 Role Dependencies
 -----------------
