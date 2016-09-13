@@ -16,3 +16,7 @@
     copy: no
   become: yes
   when: dl_result.changed
+- name: Ensure execute bit of Consul binary
+  file:
+    path: "{{ consul_bin_dir }}/consul"
+    mode: 'a+x'
