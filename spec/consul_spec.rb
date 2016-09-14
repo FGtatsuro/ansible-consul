@@ -13,13 +13,13 @@ describe file('/usr/local/bin/consul') do
 end
 
 [
-  '/etc/consul.d/web.json',
-  '/etc/consul.d/db.json'
+  "#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/web.json",
+  "#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/db.json"
 ].each do |f|
   describe file(f) do
     it { should be_file }
     it { should be_readable }
-    it { should be_owned_by 'root' }
-    it { should be_grouped_into 'root' }
+    it { should be_owned_by ENV['CONSUL_CONFIG_OWNER'] }
+    it { should be_grouped_into ENV['CONSUL_CONFIG_GROUP'] }
   end
 end
