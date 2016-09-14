@@ -2,3 +2,23 @@
 # tasks file for consul
 - name: Run specified tasks on current platform
   include: "{{ ansible_system }}.yml"
+- block:
+  - name: Ensure consul_config_remote_dir exists
+    file:
+      path: "{{ consul_config_remote_dir }}"
+      owner: "{{ consul_config_owner }}"
+      group: "{{ consul_config_group }}"
+      state: 'directory'
+  - name: Copy Consul config files from consul_config_src_dir to consul_config_remote_dir
+    copy:
+      src: "{{ consul_config_src_dir }}"
+      dest: "{{ consul_config_remote_dir }}"
+      owner: "{{ consul_config_owner }}"
+      group: "{{ consul_config_group }}"
+  - name: Ensure Consul config files are readable
+    file:
+      path: "{{ consul_config_remote_dir }}"
+      recurse: yes
+      mode: 'a+r'
+  when: consul_config_src_dir is defined
+  become: yes
