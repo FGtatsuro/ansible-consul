@@ -8,11 +8,17 @@ namespace :spec do
   hosts = [
     {
       :name     =>  'localhost',
-      :backend  =>  'exec'
+      :backend  =>  'exec',
+      :consul_config_remote_dir =>  '/Users/travis/consul.d',
+      :consul_config_owner  =>  'travis',
+      :consul_config_group  =>  'staff'
     },
     {
       :name     =>  'container',
-      :backend  =>  'docker' 
+      :backend  =>  'docker',
+      :consul_config_remote_dir =>  '/etc/consul.d',
+      :consul_config_owner  =>  'root',
+      :consul_config_group  =>  'root'
     }
   ]
   if ENV['SPEC_TARGET'] then
@@ -28,6 +34,9 @@ namespace :spec do
     RSpec::Core::RakeTask.new(host[:name].to_sym) do |t|
       ENV['TARGET_HOST'] = host[:name]
       ENV['SPEC_TARGET_BACKEND'] = host[:backend]
+      ENV['CONSUL_CONFIG_REMOTE_DIR'] = host[:consul_config_remote_dir]
+      ENV['CONSUL_CONFIG_OWNER'] = host[:consul_config_owner]
+      ENV['CONSUL_CONFIG_GROUP'] = host[:consul_config_group]
       t.pattern = "spec/consul_spec.rb"
     end
   end

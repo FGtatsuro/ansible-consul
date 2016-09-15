@@ -1,5 +1,9 @@
 ---
 # defaults file for consul
+consul_config_remote_dir: '/etc/consul.d'
+consul_config_owner: 'root'
+consul_config_group: 'root'
+
 consul_download_url: 'https://releases.hashicorp.com/consul/0.6.4/consul_0.6.4_linux_amd64.zip'
 consul_sha256: 'abdf0e1856292468e2c9971420d73b805e93888e006c76324ae39416edcf0627'
 consul_download_tmppath: '/tmp/consul.zip'

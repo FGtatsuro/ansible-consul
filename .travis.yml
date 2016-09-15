@@ -20,6 +20,7 @@ matrix:
         - TARGET=localhost
         # Workaround for OSX.
         - PYTHONPATH="/Library/Python/2.7/site-packages:$PYTHONPATH"
+        - EXTRA_VARS="consul_config_src_dir='./tests/consul.d/' consul_config_remote_dir='/Users/travis/consul.d' consul_config_owner='travis' consul_config_group='staff'"
     - os: linux
       dist: trusty
       language: python
@@ -37,6 +38,7 @@ matrix:
       env:
         - IMAGE_NAME=fgtatsuro/infra-bridgehead:debian-jessie
         - TARGET=container
+        - EXTRA_VARS="consul_config_src_dir='./tests/consul.d/'"
     - os: linux
       dist: trusty
       language: python
@@ -54,6 +56,7 @@ matrix:
       env:
         - TARGET=container
         - IMAGE_NAME=fgtatsuro/infra-bridgehead:alpine-3.3
+        - EXTRA_VARS="consul_config_src_dir='./tests/consul.d/'"
 
 # This role needs sudo, thus we can't use the new container infrastructure
 # sudo: false
