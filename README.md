@@ -36,8 +36,8 @@ The variables we can use in this role. If you want to overwrite values, please a
 
 |name|description|type|default|
 |---|---|---|---|
-|consul_download_url|Download URL of Consul archive.|str|https://releases.hashicorp.com/consul/0.6.4/consul_0.6.4_linux_amd64.zip|
-|consul_sha256|SHA256 signature of Consul archive.|str|abdf0e1856292468e2c9971420d73b805e93888e006c76324ae39416edcf0627|
+|consul_download_url|Download URL of Consul archive.|str|https://releases.hashicorp.com/consul/0.7.0/consul_0.7.0_linux_amd64.zip|
+|consul_sha256|SHA256 signature of Consul archive.|str|b350591af10d7d23514ebaa0565638539900cdb3aaa048f077217c4c46653dd8|
 |consul_download_tmppath|File path downloaded Consul archive is put temporary.|str|/tmp/consul.zip|
 |consul_bin_dir|Directory path Consul binary is put|str|/usr/local/bin|
 
