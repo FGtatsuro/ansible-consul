@@ -8,13 +8,16 @@ matrix:
   include:
     - os: osx
       language: generic
+      # Ref. https://github.com/Homebrew/brew/pull/597
+      # Ref. https://langui.sh/2015/07/24/osx-clang-include-lib-search-paths/
+      osx_image: xcode8
       install:
-        # Workaround for OSX.
-        - brew install libffi libyaml openssl
-        - brew link openssl --force
         - sudo pip install -U setuptools
         - sudo pip install ansible
         - ansible-galaxy install FGtatsuro.python-requirements
+        # Workaround for OSX of TravisCI.
+        # Ref. https://github.com/travis-ci/travis-ci/issues/5554
+        - rvm use ruby-2.2.1
         - bundle install
       env:
         - TARGET=localhost
