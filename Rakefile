@@ -9,6 +9,7 @@ namespace :spec do
     {
       :name     =>  'localhost',
       :backend  =>  'exec',
+      :consul_bin_path  => '/usr/local/bin/consul',
       :consul_config_remote_dir =>  '/Users/travis/consul.d',
       :consul_config_owner  =>  'travis',
       :consul_config_group  =>  'staff'
@@ -16,9 +17,19 @@ namespace :spec do
     {
       :name     =>  'container',
       :backend  =>  'docker',
+      :consul_bin_path  => '/usr/local/bin/consul',
       :consul_config_remote_dir =>  '/etc/consul.d',
       :consul_config_owner  =>  'root',
       :consul_config_group  =>  'root'
+    },
+    # Ref. https://github.com/hashicorp/docker-consul/tree/master/0.X
+    {
+      :name     =>  'official_container',
+      :backend  =>  'docker',
+      :consul_bin_path  => '/bin/consul',
+      :consul_config_remote_dir =>  '/consul/config',
+      :consul_config_owner  =>  'consul',
+      :consul_config_group  =>  'consul'
     }
   ]
   if ENV['SPEC_TARGET'] then
@@ -37,6 +48,7 @@ namespace :spec do
       ENV['CONSUL_CONFIG_REMOTE_DIR'] = host[:consul_config_remote_dir]
       ENV['CONSUL_CONFIG_OWNER'] = host[:consul_config_owner]
       ENV['CONSUL_CONFIG_GROUP'] = host[:consul_config_group]
+      ENV['CONSUL_BIN_PATH'] = host[:consul_bin_path]
       t.pattern = "spec/consul_spec.rb"
     end
   end
