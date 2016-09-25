@@ -40,6 +40,7 @@ The variables we can use in this role. If you want to overwrite values, please a
 |consul_sha256|SHA256 signature of Consul archive.|str|b350591af10d7d23514ebaa0565638539900cdb3aaa048f077217c4c46653dd8|
 |consul_download_tmppath|File path downloaded Consul archive is put temporary.|str|/tmp/consul.zip|
 |consul_bin_dir|Directory path Consul binary is put|str|/usr/local/bin|
+|consul_ignore_existing_bin|If this value is `yes`, downloaded Consul binary is installed even if another Consul binary already exists(=`which consul` returns 0).|bool|no|
 
 Role Dependencies
 -----------------
