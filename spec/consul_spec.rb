@@ -8,7 +8,7 @@ describe command('consul version'), :if => ['alpine', 'debian'].include?(os[:fam
   its(:stdout) { should contain("Consul v0.7.0") }
 end
 
-describe file('/usr/local/bin/consul') do
+describe file(ENV['CONSUL_BIN_PATH']) do
   it { should be_executable }
 end
 

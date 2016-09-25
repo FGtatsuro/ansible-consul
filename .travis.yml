@@ -60,6 +60,25 @@ matrix:
         - TARGET=container
         - IMAGE_NAME=fgtatsuro/infra-bridgehead:alpine-3.3
         - EXTRA_VARS="consul_config_src_dir='./tests/consul.d/'"
+    - os: linux
+      dist: trusty
+      language: python
+      python: 2.7
+      services:
+        - docker
+      addons:
+        apt:
+          packages:
+          - python-pip
+      before_script:
+        - docker run -it -d --name ${TARGET} ${IMAGE_NAME} /bin/sh
+      after_script:
+        - docker rm -f ${TARGET}
+      env:
+        - TARGET=official_container
+        - IMAGE_NAME=consul:v0.7.0
+        # Ref. https://github.com/hashicorp/docker-consul/tree/master/0.X
+        - EXTRA_VARS="consul_config_src_dir='./tests/consul.d/' consul_config_remote_dir='/consul/config' consul_config_owner='consul' consul_config_group='consul'"
 
 # This role needs sudo, thus we can't use the new container infrastructure
 # sudo: false
