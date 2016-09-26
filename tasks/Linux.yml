@@ -3,20 +3,27 @@
 # Since Ansible 2.0, 'src' parameter of 'unarchive' module accepts external URL(ex. http://example.com/file.zip).
 # But this role doesn't use this feature because zip file is always downloaded even if same file already exits in local.
 # http://docs.ansible.com/ansible/unarchive_module.html
-- name: Download Consul archive
-  get_url:
-    url: "{{ consul_download_url }}"
-    checksum: "sha256:{{ consul_sha256 }}"
-    dest: "{{ consul_download_tmppath }}"
-  register: dl_result
-- name: Unarchive Consul
-  unarchive:
-    src: "{{ consul_download_tmppath }}"
-    dest: "{{ consul_bin_dir }}"
-    copy: no
-  become: yes
-  when: dl_result.changed
-- name: Ensure execute bit of Consul binary
-  file:
-    path: "{{ consul_bin_dir }}/consul"
-    mode: 'a+x'
+- name: Check whether Consul is installed
+  command: "which consul"
+  register: which_result
+  changed_when: no
+  ignore_errors: yes
+- block:
+  - name: Download Consul archive
+    get_url:
+      url: "{{ consul_download_url }}"
+      checksum: "sha256:{{ consul_sha256 }}"
+      dest: "{{ consul_download_tmppath }}"
+    register: dl_result
+  - name: Unarchive Consul
+    unarchive:
+      src: "{{ consul_download_tmppath }}"
+      dest: "{{ consul_bin_dir }}"
+      copy: no
+    become: yes
+    when: dl_result.changed
+  - name: Ensure execute bit of Consul binary
+    file:
+      path: "{{ consul_bin_dir }}/consul"
+      mode: 'a+x'
+  when: consul_ignore_existing_bin or which_result.rc != 0
