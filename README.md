@@ -18,7 +18,7 @@ The dependencies on other softwares/librarys for this role.
 Role Variables
 --------------
 
-The variables we can use in this role. If you want to overwrite values, please also check https://www.consul.io/downloads.html.
+The variables we can use in this role.
 
 ### Common
 
@@ -33,6 +33,8 @@ The variables we can use in this role. If you want to overwrite values, please a
 - The values of `consul_config_remote_dir`, `consul_config_owner`, and `consul_config_group` are ignored when `consul_config_src_dir` isn't defined.
 
 ### Only Debian/Alpine Linux
+
+If you want to overwrite values, please also check https://www.consul.io/downloads.html.
 
 |name|description|type|default|
 |---|---|---|---|
