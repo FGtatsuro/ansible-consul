@@ -5,7 +5,7 @@ describe command('consul version') do
 end
 
 describe command('consul version'), :if => ['alpine', 'debian'].include?(os[:family]) do
-  its(:stdout) { should contain("Consul v0.7.0") }
+  its(:stdout) { should contain("Consul v0.7.3") }
 end
 
 describe file('/usr/local/bin/consul') do
