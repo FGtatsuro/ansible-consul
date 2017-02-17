@@ -33,6 +33,17 @@ The variables we can use in this role.
 - The value of `consul_config_src_dir` is used as 'src' attribute of Ansible copy module. Thus, whether this value ends with '/' affects the behavior. (Ref. http://docs.ansible.com/ansible/copy_module.html)
 - The values of `consul_config_remote_dir`, `consul_config_owner`, and `consul_config_group` are ignored when `consul_config_src_dir` isn't defined.
 
+### Only not-container
+
+These values are related to daemon script of Consul, and these are meaningful on not-container environment.
+Container doesn't use daemon script because main program in container must run on foreground.
+
+|name|description|type|default|
+|---|---|---|---|
+|consul_daemon_stdout_log|Path of logfile for stdout. Daemon script writes it.|str|/var/log/consul/stdout.log|
+|consul_daemon_stderr_log|Path of logfile for stderr. Daemon script writes it.|str|/var/log/consul/stderr.log|
+|consul_daemon_pidfile|Directory including run/daemon scripts on remote.|str|/var/lock/consul.pid|
+
 ### Only Debian/Alpine Linux
 
 If you want to overwrite values, please also check https://www.consul.io/downloads.html.
