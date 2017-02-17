@@ -3,6 +3,19 @@
 - name: Run specified tasks on current platform
   include: "{{ ansible_system }}.yml"
 - block:
+  - name: Ensure a directory related to run/daemon scripts
+    file:
+      path: "{{ consul_script_remote_dir }}"
+      owner: "{{ consul_config_owner }}"
+      group: "{{ consul_config_group }}"
+      state: 'directory'
+  - name: Set scripts
+    template:
+      src: 'services.sh'
+      dest: "{{ consul_script_remote_dir }}/services.sh"
+      mode: '0755'
+  become: yes
+- block:
   - name: Ensure consul_config_remote_dir exists
     file:
       path: "{{ consul_config_remote_dir }}"
