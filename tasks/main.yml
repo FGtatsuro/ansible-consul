@@ -28,14 +28,18 @@
   - include_vars:
       file: "{{ ansible_system }}.yml"
       name: os_specified_vars
-  - name: Ensure directory(for lock file daemon) exist
+  - name: Ensure directory(for lock file of daemon) exist
     file:
       path: "{{ consul_daemon_pidfile | dirname }}"
       owner: 'root'
       group: "{{ os_specified_vars.root_group }}"
-      mode: '0777'
       state: 'directory'
     when: not stat_daemon_lockfile_dir.stat.exists
+  - name: Ensure directory(for lock file of daemon) has full permission.
+    file:
+      path: "{{ consul_daemon_pidfile | dirname }}"
+      mode: '0777'
+      state: 'touch'
   - name: Resolve the dependency of daemon script
     pip:
       name: python-daemon
