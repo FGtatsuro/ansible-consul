@@ -1,0 +1,3 @@
+---
+# vars file for consul
+root_group: 'root'
