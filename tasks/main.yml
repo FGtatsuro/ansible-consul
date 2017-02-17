@@ -3,6 +3,50 @@
 - name: Run specified tasks on current platform
   include: "{{ ansible_system }}.yml"
 - block:
+  - name: Ensure a directory related to run/daemon scripts exist
+    file:
+      path: "{{ consul_script_remote_dir }}"
+      owner: "{{ consul_config_owner }}"
+      group: "{{ consul_config_group }}"
+      state: 'directory'
+  - name: Ensure directories(for logging related to daemon) exist
+    file:
+      path: "{{ item }}"
+      owner: "{{ consul_config_owner }}"
+      group: "{{ consul_config_group }}"
+      state: 'directory'
+    with_items:
+      - "{{ consul_daemon_stdout_log | dirname }}"
+      - "{{ consul_daemon_stderr_log | dirname  }}"
+  # Default value of consul_daemon_pidfile has /var/lock as parent directory.
+  # On several linux, /var/lock already exists as symlink. Thus directory creation is failed.
+  - name: Check path related to lock file of daemon
+    stat:
+      path: "{{ consul_daemon_pidfile | dirname  }}"
+    register: stat_daemon_lockfile_dir
+    changed_when: no
+  - name: Ensure directory(for lock file daemon) exist
+    file:
+      path: "{{ consul_daemon_pidfile | dirname }}"
+      owner: "{{ consul_config_owner }}"
+      group: "{{ consul_config_group }}"
+      state: 'directory'
+    when: not stat_daemon_lockfile_dir.stat.exists
+  - name: Resolve the dependency of daemon script
+    pip:
+      name: python-daemon
+  - name: Set run/daemon scripts
+    template:
+      src: "{{ item }}"
+      dest: "{{ consul_script_remote_dir }}/{{ item }}"
+      owner: "{{ consul_config_owner }}"
+      group: "{{ consul_config_group }}"
+      mode: '0755'
+    with_items:
+      - services.sh
+      - daemon.py
+  become: yes
+- block:
   - name: Ensure consul_config_remote_dir exists
     file:
       path: "{{ consul_config_remote_dir }}"
