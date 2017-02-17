@@ -30,7 +30,7 @@
       name: os_specified_vars
   - name: Ensure directory(for lock file of daemon) exist
     file:
-      path: "{{ stat_daemon_lockfile_dir.stat.path }}"
+      path: "{{ consul_daemon_pidfile | dirname }}"
       owner: 'root'
       group: "{{ os_specified_vars.root_group }}"
       state: 'directory'
@@ -38,7 +38,7 @@
   # http://docs.ansible.com/ansible/stat_module.html
   - name: Ensure directory(for lock file of daemon) has full permission.
     file:
-      path: "{{ stat_daemon_lockfile_dir.stat.path }}"
+      path: "{{ consul_daemon_pidfile | dirname }}"
       mode: '0777'
       state: 'directory'
     when: not stat_daemon_lockfile_dir.stat.islnk
