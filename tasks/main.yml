@@ -35,18 +35,19 @@
       group: "{{ os_specified_vars.root_group }}"
       state: 'directory'
     when: not stat_daemon_lockfile_dir.stat.exists
+  # http://docs.ansible.com/ansible/stat_module.html
   - name: Ensure directory(for lock file of daemon) has full permission.
     file:
       path: "{{ stat_daemon_lockfile_dir.stat.path }}"
       mode: '0777'
       state: 'directory'
-    when: stat_daemon_lockfile_dir.stat.islnk is not defined
+    when: not stat_daemon_lockfile_dir.stat.islnk
   - name: Ensure directory bound to symlink(for lock file of daemon) has full permission.
     file:
       path: "{{ stat_daemon_lockfile_dir.stat.lnk_source }}"
       mode: '0777'
       state: 'directory'
-    when: stat_daemon_lockfile_dir.stat.islnk is defined
+    when: stat_daemon_lockfile_dir.stat.islnk
   - name: Resolve the dependency of daemon script
     pip:
       name: python-daemon
