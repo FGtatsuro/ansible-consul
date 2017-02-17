@@ -39,6 +39,8 @@
     template:
       src: "{{ item }}"
       dest: "{{ consul_script_remote_dir }}/{{ item }}"
+      owner: "{{ consul_config_owner }}"
+      group: "{{ consul_config_group }}"
       mode: '0755'
     with_items:
       - services.sh
