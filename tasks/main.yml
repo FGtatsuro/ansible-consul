@@ -6,14 +6,14 @@
   - name: Ensure a directory related to run/daemon scripts exist
     file:
       path: "{{ consul_script_remote_dir }}"
-      owner: "{{ consul_config_owner }}"
-      group: "{{ consul_config_group }}"
+      owner: "{{ consul_owner }}"
+      group: "{{ consul_group }}"
       state: 'directory'
   - name: Ensure directories(for logging related to daemon) exist
     file:
       path: "{{ item }}"
-      owner: "{{ consul_config_owner }}"
-      group: "{{ consul_config_group }}"
+      owner: "{{ consul_owner }}"
+      group: "{{ consul_group }}"
       state: 'directory'
     with_items:
       - "{{ consul_daemon_stdout_log | dirname }}"
@@ -28,8 +28,8 @@
   - name: Ensure directory(for lock file daemon) exist
     file:
       path: "{{ consul_daemon_pidfile | dirname }}"
-      owner: "{{ consul_config_owner }}"
-      group: "{{ consul_config_group }}"
+      owner: "{{ consul_owner }}"
+      group: "{{ consul_group }}"
       state: 'directory'
     when: not stat_daemon_lockfile_dir.stat.exists
   - name: Resolve the dependency of daemon script
@@ -39,8 +39,8 @@
     template:
       src: "{{ item }}"
       dest: "{{ consul_script_remote_dir }}/{{ item }}"
-      owner: "{{ consul_config_owner }}"
-      group: "{{ consul_config_group }}"
+      owner: "{{ consul_owner }}"
+      group: "{{ consul_group }}"
       mode: '0755'
     with_items:
       - services.sh
@@ -50,15 +50,15 @@
   - name: Ensure consul_config_remote_dir exists
     file:
       path: "{{ consul_config_remote_dir }}"
-      owner: "{{ consul_config_owner }}"
-      group: "{{ consul_config_group }}"
+      owner: "{{ consul_owner }}"
+      group: "{{ consul_group }}"
       state: 'directory'
   - name: Copy Consul config files from consul_config_src_dir to consul_config_remote_dir
     copy:
       src: "{{ consul_config_src_dir }}"
       dest: "{{ consul_config_remote_dir }}"
-      owner: "{{ consul_config_owner }}"
-      group: "{{ consul_config_group }}"
+      owner: "{{ consul_owner }}"
+      group: "{{ consul_group }}"
   - name: Ensure Consul config files are readable
     file:
       path: "{{ consul_config_remote_dir }}"

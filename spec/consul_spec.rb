@@ -19,8 +19,8 @@ end
 ].each do |f|
   describe file(f) do
     it { should be_mode 755 }
-    it { should be_owned_by ENV['CONSUL_CONFIG_OWNER'] }
-    it { should be_grouped_into ENV['CONSUL_CONFIG_GROUP'] }
+    it { should be_owned_by ENV['CONSUL_OWNER'] }
+    it { should be_grouped_into ENV['CONSUL_GROUP'] }
   end
 end
 describe file('/opt/consul/daemon.py') do
@@ -29,8 +29,8 @@ describe file('/opt/consul/daemon.py') do
   its(:content) { should match /\/var\/log\/consul\/stderr\.log/ }
   its(:content) { should match /\/var\/lock\/consul\.pid/ }
   it { should be_executable }
-  it { should be_owned_by ENV['CONSUL_CONFIG_OWNER'] }
-  it { should be_grouped_into ENV['CONSUL_CONFIG_GROUP'] }
+  it { should be_owned_by ENV['CONSUL_OWNER'] }
+  it { should be_grouped_into ENV['CONSUL_GROUP'] }
 end
 
 describe package('python-daemon') do
@@ -43,8 +43,8 @@ end
 ].each do |f|
   describe file(f) do
     it { should exist }
-    it { should be_owned_by ENV['CONSUL_CONFIG_OWNER'] }
-    it { should be_grouped_into ENV['CONSUL_CONFIG_GROUP'] }
+    it { should be_owned_by ENV['CONSUL_OWNER'] }
+    it { should be_grouped_into ENV['CONSUL_GROUP'] }
   end
 end
 
@@ -56,7 +56,7 @@ end
   describe file(f) do
     it { should be_file }
     it { should be_readable }
-    it { should be_owned_by ENV['CONSUL_CONFIG_OWNER'] }
-    it { should be_grouped_into ENV['CONSUL_CONFIG_GROUP'] }
+    it { should be_owned_by ENV['CONSUL_OWNER'] }
+    it { should be_grouped_into ENV['CONSUL_GROUP'] }
   end
 end

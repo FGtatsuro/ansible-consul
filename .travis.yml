@@ -23,7 +23,7 @@ matrix:
         - TARGET=localhost
         # Workaround for OSX.
         - PYTHONPATH="/Library/Python/2.7/site-packages:$PYTHONPATH"
-        - EXTRA_VARS="consul_config_src_dir='../tests/consul.d/' consul_config_remote_dir='/Users/travis/consul.d' consul_config_owner='travis' consul_config_group='staff'"
+        - EXTRA_VARS="consul_config_src_dir='../tests/consul.d/' consul_config_remote_dir='/Users/travis/consul.d' consul_owner='travis' consul_group='staff'"
     - os: linux
       dist: trusty
       language: python

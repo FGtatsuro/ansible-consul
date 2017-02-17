@@ -1,8 +1,8 @@
 ---
 # defaults file for consul
 consul_config_remote_dir: '/etc/consul.d'
-consul_config_owner: 'root'
-consul_config_group: 'root'
+consul_owner: 'root'
+consul_group: 'root'
 consul_script_remote_dir: '/opt/consul'
 consul_daemon_stdout_log: '/var/log/consul/stdout.log'
 consul_daemon_stderr_log: '/var/log/consul/stderr.log'
