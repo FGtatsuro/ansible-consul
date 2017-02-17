@@ -25,11 +25,15 @@
       path: "{{ consul_daemon_pidfile | dirname  }}"
     register: stat_daemon_lockfile_dir
     changed_when: no
+  - include_vars:
+      file: "{{ ansible_system }}.yml"
+      name: os_specified_vars
   - name: Ensure directory(for lock file daemon) exist
     file:
       path: "{{ consul_daemon_pidfile | dirname }}"
-      owner: "{{ consul_owner }}"
-      group: "{{ consul_group }}"
+      owner: 'root'
+      group: "{{ os_specified_vars.root_group }}"
+      mode: '0777'
       state: 'directory'
     when: not stat_daemon_lockfile_dir.stat.exists
   - name: Resolve the dependency of daemon script

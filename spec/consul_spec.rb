@@ -18,6 +18,7 @@ end
   '/opt/consul/services.sh'
 ].each do |f|
   describe file(f) do
+    it { should be_file }
     it { should be_mode 755 }
     it { should be_owned_by ENV['CONSUL_OWNER'] }
     it { should be_grouped_into ENV['CONSUL_GROUP'] }
@@ -28,24 +29,23 @@ describe file('/opt/consul/daemon.py') do
   its(:content) { should match /\/var\/log\/consul\/stdout\.log/ }
   its(:content) { should match /\/var\/log\/consul\/stderr\.log/ }
   its(:content) { should match /\/var\/lock\/consul\.pid/ }
-  it { should be_executable }
-  it { should be_owned_by ENV['CONSUL_OWNER'] }
-  it { should be_grouped_into ENV['CONSUL_GROUP'] }
 end
 
 describe package('python-daemon') do
   it { should be_installed.by(:pip) }
 end
 
-[
-  '/var/log/consul',
-  '/var/lock'
-].each do |f|
-  describe file(f) do
-    it { should exist }
-    it { should be_owned_by ENV['CONSUL_OWNER'] }
-    it { should be_grouped_into ENV['CONSUL_GROUP'] }
-  end
+describe file('/var/log/consul') do
+  it { should be_directory }
+  it { should be_owned_by ENV['CONSUL_OWNER'] }
+  it { should be_grouped_into ENV['CONSUL_GROUP'] }
+end
+
+describe file('/var/lock') do
+  it { should exist }
+  it { should be_mode 777 }
+  it { should be_owned_by 'root' }
+  it { should be_grouped_into ENV['ROOT_GROUP'] }
 end
 
 # Custom settings
