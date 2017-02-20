@@ -20,3 +20,28 @@
   file:
     path: "{{ consul_bin_dir }}/consul"
     mode: 'a+x'
+- block:
+  - name: Ensure consul_group exists
+    group:
+      name: "{{ consul_group }}"
+      system: yes
+  - name: Ensure consul_user exists and belongs to consul_group
+    user:
+      name: "{{ consul_owner }}"
+      group: "{{ consul_group }}"
+      system: yes
+  become: yes
+  when: ansible_os_family != 'Alpine'
+- block:
+  - name: Ensure consul_group exists(on Alpine Linux)
+    command: "addgroup -S {{ consul_owner }}"
+    register: cmd_consul_group
+    changed_when: cmd_consul_group.rc == 0
+    failed_when: cmd_consul_group.rc != 0 and "group '{{ consul_group }}' in use" not in cmd_consul_group.stderr
+  - name: Ensure consul_user exists and belongs to consul_group(on Alpine Linux)
+    command: "adduser -G {{ consul_group }} -H -S -D {{ consul_owner }}"
+    register: cmd_consul_user
+    changed_when: cmd_consul_user.rc == 0
+    failed_when: cmd_consul_user.rc != 0 and "user '{{ consul_owner }}' in use" not in cmd_consul_user.stderr
+  become: yes
+  when: ansible_os_family == 'Alpine'
