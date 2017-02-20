@@ -14,7 +14,7 @@ end
 
 # Default settings
 [
-  '/opt/consul/daemon.py',
+  '/opt/consul/daemons.py',
   '/opt/consul/services.sh'
 ].each do |f|
   describe file(f) do
@@ -24,7 +24,7 @@ end
     it { should be_grouped_into ENV['CONSUL_GROUP'] }
   end
 end
-describe file('/opt/consul/daemon.py') do
+describe file('/opt/consul/daemons.py') do
   its(:content) { should match /\/opt\/consul\/services\.sh/ }
   its(:content) { should match /\/var\/log\/consul\/stdout\.log/ }
   its(:content) { should match /\/var\/log\/consul\/stderr\.log/ }
