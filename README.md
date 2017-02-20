@@ -50,8 +50,8 @@ If you want to overwrite values, please also check https://www.consul.io/downloa
 
 |name|description|type|default|
 |---|---|---|---|
-|consul_download_url|Download URL of Consul archive.|str|https://releases.hashicorp.com/consul/0.7.0/consul_0.7.0_linux_amd64.zip|
-|consul_sha256|SHA256 signature of Consul archive.|str|b350591af10d7d23514ebaa0565638539900cdb3aaa048f077217c4c46653dd8|
+|consul_download_url|Download URL of Consul archive.|str|https://releases.hashicorp.com/consul/0.7.5/consul_0.7.5_linux_amd64.zip|
+|consul_sha256|SHA256 signature of Consul archive.|str|40ce7175535551882ecdff21fdd276cef6eaab96be8a8260e0599fadb6f1f5b8|
 |consul_download_tmppath|File path downloaded Consul archive is put temporary.|str|/tmp/consul.zip|
 |consul_bin_dir|Directory path Consul binary is put|str|/usr/local/bin|
 
