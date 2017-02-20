@@ -4,3 +4,14 @@
   homebrew:
     name: 'consul'
     update_homebrew: yes
+- block:
+  - name: Ensure consul_group exists
+    group:
+      name: "{{ consul_group }}"
+      system: yes
+  - name: Ensure consul_user exists and belongs to consul_group
+    user:
+      name: "{{ consul_owner }}"
+      group: "{{ consul_group }}"
+      system: yes
+  become: yes

@@ -26,8 +26,8 @@ The variables we can use in this role.
 |---|---|---|---|
 |consul_config_src_dir|Directory including Consul config files on local. Config files are copied to `consul_config_remote_dir` directory on remote.|str|It isn't defined in default. No Consul config file is copied to remote.|
 |consul_config_remote_dir|Directory including Consul config files on remote. In almost cases, this value will be passed with `-config-dir` option of Consul.|str|/etc/consul.d|
-|consul_owner|User of configs(`consul_config_remote_dir`) and scripts(`consul_script_remote_dir`).|str|root|
-|consul_group|Group of configs(`consul_config_remote_dir`) and scripts(`consul_script_remote_dir`).|str|root|
+|consul_owner|User of configs(`consul_config_remote_dir`) and scripts(`consul_script_remote_dir`).|str|consul|
+|consul_group|Group of configs(`consul_config_remote_dir`) and scripts(`consul_script_remote_dir`).|str|consul|
 |consul_script_remote_dir|Directory including run/daemon scripts on remote.|str|/opt/consul|
 
 - The value of `consul_config_src_dir` is used as 'src' attribute of Ansible copy module. Thus, whether this value ends with '/' affects the behavior. (Ref. http://docs.ansible.com/ansible/copy_module.html)

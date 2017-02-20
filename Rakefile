@@ -18,8 +18,8 @@ namespace :spec do
       :name     =>  'container',
       :backend  =>  'docker',
       :consul_config_remote_dir =>  '/etc/consul.d',
-      :consul_owner  =>  'root',
-      :consul_group  =>  'root',
+      :consul_owner  =>  'consul',
+      :consul_group  =>  'consul',
       :root_group =>  'root'
     }
   ]
