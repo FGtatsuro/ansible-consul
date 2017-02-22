@@ -12,3 +12,15 @@ describe command("consul members -rpc-addr=#{private_ip}:8400") do
   its(:stdout) { should match /server/ }
   its(:exit_status) { should eq 0 }
 end
+
+describe file('/var/log/consul/stdout.log') do
+  its(:content) { should match /Consul agent running/ }
+end
+
+describe file('/var/log/consul/stderr.log') do
+  its(:size) { should eq 0 }
+end
+
+describe file('/var/lock/consul.pid') do
+  it { should be_file }
+end
