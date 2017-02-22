@@ -8,7 +8,7 @@ private_ip = Socket.getifaddrs.select {|a| a.name == 'en0' && a.addr.ipv4?}.firs
 
 describe command("consul members -rpc-addr=#{private_ip}:8400") do
   its(:stdout) { should match /#{private_ip}:8301/ }
-  its(:stdout) { should match /travis/ }
+  its(:stdout) { should match /travis_consul/ }
   its(:stdout) { should match /server/ }
   its(:exit_status) { should eq 0 }
 end
