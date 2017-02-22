@@ -12,7 +12,8 @@ namespace :spec do
       :consul_config_remote_dir =>  '/Users/travis/consul.d',
       :consul_owner  =>  'travis',
       :consul_group  =>  'staff',
-      :root_group =>  'wheel'
+      :root_group =>  'wheel',
+      :pattern  =>  'spec/consul_spec.rb,spec/consul_daemon_dev_spec.rb'
     },
     {
       :name     =>  'container',
@@ -20,7 +21,8 @@ namespace :spec do
       :consul_config_remote_dir =>  '/etc/consul.d',
       :consul_owner  =>  'consul',
       :consul_group  =>  'consul',
-      :root_group =>  'root'
+      :root_group =>  'root',
+      :pattern  =>  'spec/consul_spec.rb'
     }
   ]
   if ENV['SPEC_TARGET'] then
@@ -40,7 +42,7 @@ namespace :spec do
       ENV['CONSUL_OWNER'] = host[:consul_owner]
       ENV['CONSUL_GROUP'] = host[:consul_group]
       ENV['ROOT_GROUP'] = host[:root_group]
-      t.pattern = "spec/consul_spec.rb"
+      t.pattern = host[:pattern]
     end
   end
 end

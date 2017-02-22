@@ -19,6 +19,17 @@ matrix:
         # Ref. https://github.com/travis-ci/travis-ci/issues/5554
         - rvm use ruby-2.2.1
         - bundle install
+      script:
+        # Basic role syntax check
+        - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
+        - ansible-playbook tests/test.yml -i tests/inventory -l ${TARGET} --extra-vars="${EXTRA_VARS}" -vvvv
+        - CONSUL_NODE_NAME=travis_consul CONSUL_CONFIGDIR=/Users/travis/consul.d CONSUL_BIND_ADDRESS=`ifconfig en0 | awk '/inet / {printf $2}'` /opt/consul/daemons.py dev
+        - bundle exec rake spec SPEC_TARGET=${TARGET}
+        # For debug
+        - pgrep -f consul | xargs echo
+        - sudo pkill -g `ps -eo pgid,args | grep '/opt/consul/daemons.py dev' | grep -v 'grep' | awk '{printf $1}'`
+        # For debug
+        - pgrep -f consul | xargs echo
       env:
         - TARGET=localhost
         # Workaround for OSX.
