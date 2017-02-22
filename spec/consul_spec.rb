@@ -28,7 +28,7 @@ describe file('/opt/consul/daemons.py') do
   its(:content) { should match /\/opt\/consul\/services\.sh/ }
   its(:content) { should match /\/var\/log\/consul\/stdout\.log/ }
   its(:content) { should match /\/var\/log\/consul\/stderr\.log/ }
-  its(:content) { should match /\/var\/run\/consul\.pid/ }
+  its(:content) { should match /\/var\/run\/consul\/consul\.pid/ }
 end
 
 describe package('python-daemon') do
@@ -47,7 +47,7 @@ end
 # lrwxrwxrwx 1 root root 4 Mar 26  2015 /var/run -> /run
 # $ ls -altd /var/run/
 # drwxr-xr-x 20 root root 840 Feb 22 18:11 /var/run/
-describe file('/var/run/') do
+describe file('/var/run/consul/') do
   it { should exist }
   it { should be_mode ENV['LOCK_MODE'] }
   it { should be_owned_by 'root' }

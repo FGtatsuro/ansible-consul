@@ -21,6 +21,6 @@ describe file('/var/log/consul/stderr.log') do
   its(:size) { should eq 0 }
 end
 
-describe file('/var/run/consul.pid') do
+describe file('/var/run/consul/consul.pid') do
   it { should be_file }
 end
