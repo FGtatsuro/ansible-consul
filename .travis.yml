@@ -25,7 +25,9 @@ matrix:
         - ansible-playbook tests/test.yml -i tests/inventory -l ${TARGET} --extra-vars="${EXTRA_VARS}" -vvvv
         - CONSUL_NODE_NAME=travis_consul CONSUL_CONFIGDIR=/Users/travis/consul.d CONSUL_BIND_ADDRESS=`ifconfig en0 | awk '/inet / {printf $2}'` /opt/consul/daemons.py dev
         - bundle exec rake spec SPEC_TARGET=${TARGET}
-        - ps -ef | grep consul
+        - pgrep -f consul
+        - sudo pkill -g `ps -eo pgid,args | grep '/opt/consul/daemons.py dev' | grep -v 'grep' | awk '{printf $1}'`
+        - pgrep -f consul
       env:
         - TARGET=localhost
         # Workaround for OSX.
