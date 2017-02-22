@@ -42,7 +42,7 @@ Container doesn't use daemon script because main program in container must run o
 |---|---|---|---|
 |consul_daemon_stdout_log|Path of logfile for stdout. Daemon script writes it.|str|/var/log/consul/stdout.log|
 |consul_daemon_stderr_log|Path of logfile for stderr. Daemon script writes it.|str|/var/log/consul/stderr.log|
-|consul_daemon_pidfile|Directory including run/daemon scripts on remote. This directory is owned by root user, and its mode is 777.|str|/var/lock/consul.pid|
+|consul_daemon_pidfile|Directory including run/daemon scripts on remote. This directory is owned by root user, and its mode is 777.|str|/var/run/consul.pid|
 
 ### Only Debian/Alpine Linux
 

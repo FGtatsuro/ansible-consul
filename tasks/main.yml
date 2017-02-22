@@ -32,21 +32,21 @@
     file:
       path: "{{ consul_daemon_pidfile | dirname }}"
       owner: 'root'
-      group: "{{ os_specified_vars.root_group }}"
-      mode: '0777'
+      group: "{{ os_specified_vars.lock_group }}"
+      mode: "{{ os_specified_vars.lock_mode }}"
       state: 'directory'
     when: not stat_daemon_lockfile_dir.stat.exists
-  # http://docs.ansible.com/ansible/stat_module.html
+  # FYI: http://docs.ansible.com/ansible/stat_module.html
   - name: Ensure directory(for lock file of daemon) has full permission.
     file:
       path: "{{ consul_daemon_pidfile | dirname }}"
-      mode: '0777'
+      mode: "{{ os_specified_vars.lock_mode }}"
       state: 'directory'
     when: (stat_daemon_lockfile_dir.stat.exists is defined) and (not stat_daemon_lockfile_dir.stat.islnk)
   - name: Ensure directory bound to symlink(for lock file of daemon) has full permission.
     file:
       path: "{{ stat_daemon_lockfile_dir.stat.lnk_source }}"
-      mode: '0777'
+      mode: "{{ os_specified_vars.lock_mode }}"
       state: 'directory'
     when: (stat_daemon_lockfile_dir.stat.exists is defined) and (stat_daemon_lockfile_dir.stat.islnk)
   - name: Resolve the dependency of daemon script
