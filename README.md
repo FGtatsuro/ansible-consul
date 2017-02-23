@@ -43,6 +43,9 @@ Container doesn't use daemon script because main program in container must run o
 |consul_daemon_log_dir|Directory including log files of daemon(named `stdout.log and `stderr.log`). It's owned by `consul_owner`.|str|/var/log/consul|
 |consul_daemon_pid_dir|Directory including PID file of daemon(named `consul.pid`). It's owned by `consul_owner`.|str|/var/run/consul|
 
+- It's better to use dedicated directories for `consul_daemon_log_dir` and `consul_daemon_pid_dir`.
+  If you use existing directores(ex. `/var/log`, `/var/run`), This role mayn't work well.
+
 ### Only Debian/Alpine Linux
 
 If you want to overwrite values, please also check https://www.consul.io/downloads.html.
