@@ -23,7 +23,7 @@ matrix:
         # Basic role syntax check
         - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
         - ansible-playbook tests/test.yml -i tests/inventory -l ${TARGET} --extra-vars="${EXTRA_VARS}" -vvvv
-        - CONSUL_NODE_NAME=travis_consul CONSUL_CONFIGDIR=/Users/travis/consul.d CONSUL_BIND_ADDRESS=`ifconfig en0 | awk '/inet / {printf $2}'` sudo -E /opt/consul/daemons.py dev
+        - CONSUL_NODE_NAME=travis_consul CONSUL_CONFIGDIR=/Users/travis/consul.d CONSUL_BIND_ADDRESS=`ifconfig en0 | awk '/inet / {printf $2}'` sudo -E "su consul -c '/opt/consul/daemons.py dev'"
         # For debug
         - pgrep -f consul | xargs echo
         - cat /var/log/consul/stdout.log
