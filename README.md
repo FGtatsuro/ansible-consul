@@ -40,9 +40,8 @@ Container doesn't use daemon script because main program in container must run o
 
 |name|description|type|default|
 |---|---|---|---|
-|consul_daemon_stdout_log|Path of logfile for stdout, and daemon script writes it. It's parent directory is owned by `consul_owner`.|str|/var/log/consul/stdout.log|
-|consul_daemon_stderr_log|Path of logfile for stderr, and daemon script writes it. It's parent directory is owned by `consul_owner`.|str|/var/log/consul/stderr.log|
-|consul_daemon_pidfile|Path PID file of daemon script is created. It's parent directory is owned by root, and its mode is 755(Linux)/775(OSX).|str|/var/run/consul.pid|
+|consul_daemon_log_dir|Directory including log files of daemon(named `stdout.log and `stderr.log`). It's owned by `consul_owner`.|str|/var/log/consul|
+|consul_daemon_pid_dir|Directory including PID file of daemon(named `consul.pid`). It's owned by `consul_owner`.|str|/var/run/consul|
 
 ### Only Debian/Alpine Linux
 

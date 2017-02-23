@@ -13,8 +13,8 @@ import daemon
 import lockfile.pidlockfile
 
 if __name__ == '__main__':
-    stdout = open('{{ consul_daemon_stdout_log }}', mode='a+')
-    stderr = open('{{ consul_daemon_stderr_log }}', mode='a+')
-    pidfile = lockfile.pidlockfile.PIDLockFile('{{ consul_daemon_pidfile }}')
+    stdout = open('{{ consul_daemon_log_dir }}/stdout.log', mode='a+')
+    stderr = open('{{ consul_daemon_log_dir }}/stderr.log', mode='a+')
+    pidfile = lockfile.pidlockfile.PIDLockFile('{{ consul_daemon_pid_dir }}/consul.pid')
     with daemon.DaemonContext(stdout=stdout, stderr=stderr, pidfile=pidfile):
         subprocess.call(['{{ consul_script_remote_dir }}/services.sh'] + sys.argv[1:])

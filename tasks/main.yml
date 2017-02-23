@@ -9,46 +9,41 @@
       owner: "{{ consul_owner }}"
       group: "{{ consul_group }}"
       state: 'directory'
-  - name: Ensure directories(for logging related to daemon) exist
+  - name: Ensure directory(for logging related to daemon) exist
     file:
-      path: "{{ item }}"
+      path: "{{ consul_daemon_log_dir }}"
       owner: "{{ consul_owner }}"
       group: "{{ consul_group }}"
       state: 'directory'
-    with_items:
-      - "{{ consul_daemon_stdout_log | dirname }}"
-      - "{{ consul_daemon_stderr_log | dirname  }}"
-  # Default value of consul_daemon_pidfile has /var/lock as parent directory.
-  # On several linux, /var/lock already exists as symlink. Thus directory creation is failed.
-  - name: Check path related to lock file of daemon
+  - name: Check path related to PID file of daemon
     stat:
-      path: "{{ consul_daemon_pidfile | dirname  }}"
-    register: stat_daemon_lockfile_dir
+      path: "{{ consul_daemon_pid_dir  }}"
+    register: stat_daemon_pid_dir
     changed_when: no
   - include_vars:
       file: "{{ ansible_system }}.yml"
       name: os_specified_vars
   - name: Ensure directory(for lock file of daemon) exist
     file:
-      path: "{{ consul_daemon_pidfile | dirname }}"
+      path: "{{ consul_daemon_pid_dir }}"
       owner: 'root'
       group: "{{ os_specified_vars.lock_group }}"
       mode: "{{ os_specified_vars.lock_mode }}"
       state: 'directory'
-    when: not stat_daemon_lockfile_dir.stat.exists
+    when: not stat_daemon_pid_dir.stat.exists
   # FYI: http://docs.ansible.com/ansible/stat_module.html
   - name: Ensure directory(for lock file of daemon) has full permission.
     file:
-      path: "{{ consul_daemon_pidfile | dirname }}"
+      path: "{{ consul_daemon_pid_dir }}"
       mode: "{{ os_specified_vars.lock_mode }}"
       state: 'directory'
-    when: (stat_daemon_lockfile_dir.stat.exists is defined) and (not stat_daemon_lockfile_dir.stat.islnk)
+    when: (stat_daemon_pid_dir.stat.exists is defined) and (not stat_daemon_pid_dir.stat.islnk)
   - name: Ensure directory bound to symlink(for lock file of daemon) has full permission.
     file:
-      path: "{{ stat_daemon_lockfile_dir.stat.lnk_source }}"
+      path: "{{ stat_daemon_pid_dir.stat.lnk_source }}"
       mode: "{{ os_specified_vars.lock_mode }}"
       state: 'directory'
-    when: (stat_daemon_lockfile_dir.stat.exists is defined) and (stat_daemon_lockfile_dir.stat.islnk)
+    when: (stat_daemon_pid_dir.stat.exists is defined) and (stat_daemon_pid_dir.stat.islnk)
   - name: Resolve the dependency of daemon script
     pip:
       name: python-daemon

@@ -4,10 +4,9 @@ consul_config_remote_dir: '/etc/consul.d'
 consul_owner: 'consul'
 consul_group: 'consul'
 consul_script_remote_dir: '/opt/consul'
-consul_daemon_stdout_log: '/var/log/consul/stdout.log'
-consul_daemon_stderr_log: '/var/log/consul/stderr.log'
 # FYI: http://www.pathname.com/fhs/pub/fhs-2.3.html#VARRUNRUNTIMEVARIABLEDATA
-consul_daemon_pidfile: '/var/run/consul.pid'
+consul_daemon_log_dir: '/var/log/consul'
+consul_daemon_pid_dir: '/var/run/consul'
 
 consul_download_url: 'https://releases.hashicorp.com/consul/0.7.5/consul_0.7.5_linux_amd64.zip'
 consul_sha256: '40ce7175535551882ecdff21fdd276cef6eaab96be8a8260e0599fadb6f1f5b8'
