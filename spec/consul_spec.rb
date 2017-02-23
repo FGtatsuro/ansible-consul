@@ -49,9 +49,8 @@ end
 # drwxr-xr-x 20 root root 840 Feb 22 18:11 /var/run/
 describe file('/var/run/consul/') do
   it { should exist }
-  it { should be_mode ENV['LOCK_MODE'] }
-  it { should be_owned_by 'root' }
-  it { should be_grouped_into ENV['LOCK_GROUP'] }
+  it { should be_owned_by ENV['CONSUL_OWNER'] }
+  it { should be_grouped_into ENV['CONSUL_GROUP'] }
 end
 
 # Custom settings

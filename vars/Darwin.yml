@@ -1,4 +1,0 @@
----
-# vars file for consul
-lock_group: 'daemon'
-lock_mode: '0775'
