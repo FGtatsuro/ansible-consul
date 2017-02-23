@@ -28,7 +28,7 @@ describe file('/opt/consul/daemons.py') do
   its(:content) { should match /\/opt\/consul\/services\.sh/ }
   its(:content) { should match /\/var\/log\/consul\/stdout\.log/ }
   its(:content) { should match /\/var\/log\/consul\/stderr\.log/ }
-  its(:content) { should match /\/var\/lock\/consul\.pid/ }
+  its(:content) { should match /\/var\/run\/consul\.pid/ }
 end
 
 describe package('python-daemon') do
@@ -41,11 +41,17 @@ describe file('/var/log/consul') do
   it { should be_grouped_into ENV['CONSUL_GROUP'] }
 end
 
-describe file('/var/lock') do
+# Last '/' is needed. For example,  in Ubuntu:
+#
+# $ ls -altd /var/run
+# lrwxrwxrwx 1 root root 4 Mar 26  2015 /var/run -> /run
+# $ ls -altd /var/run/
+# drwxr-xr-x 20 root root 840 Feb 22 18:11 /var/run/
+describe file('/var/run/') do
   it { should exist }
-  it { should be_mode 777 }
+  it { should be_mode ENV['LOCK_MODE'] }
   it { should be_owned_by 'root' }
-  it { should be_grouped_into ENV['ROOT_GROUP'] }
+  it { should be_grouped_into ENV['LOCK_GROUP'] }
 end
 
 # Custom settings

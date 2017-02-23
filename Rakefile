@@ -12,7 +12,8 @@ namespace :spec do
       :consul_config_remote_dir =>  '/Users/travis/consul.d',
       :consul_owner  =>  'travis',
       :consul_group  =>  'staff',
-      :root_group =>  'wheel',
+      :lock_group => 'daemon',
+      :lock_mode  => '775',
       :pattern  =>  'spec/consul_spec.rb,spec/consul_daemon_dev_spec.rb'
     },
     {
@@ -21,7 +22,8 @@ namespace :spec do
       :consul_config_remote_dir =>  '/etc/consul.d',
       :consul_owner  =>  'consul',
       :consul_group  =>  'consul',
-      :root_group =>  'root',
+      :lock_group =>  'root',
+      :lock_mode  => '755',
       :pattern  =>  'spec/consul_spec.rb'
     }
   ]
@@ -41,7 +43,8 @@ namespace :spec do
       ENV['CONSUL_CONFIG_REMOTE_DIR'] = host[:consul_config_remote_dir]
       ENV['CONSUL_OWNER'] = host[:consul_owner]
       ENV['CONSUL_GROUP'] = host[:consul_group]
-      ENV['ROOT_GROUP'] = host[:root_group]
+      ENV['LOCK_GROUP'] = host[:lock_group]
+      ENV['LOCK_MODE'] = host[:lock_mode]
       t.pattern = host[:pattern]
     end
   end

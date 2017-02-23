@@ -1,3 +1,4 @@
 ---
-# vars file for consul
-root_group: 'root'
+# vars file for consul(On Linux)
+lock_group: 'root'
+lock_mode: '0755'
