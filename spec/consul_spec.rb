@@ -12,20 +12,11 @@ describe file('/usr/local/bin/consul') do
   it { should be_executable }
 end
 
-# Default settings
-[
-  '/opt/consul/daemons.py',
-  '/opt/consul/services.sh'
-].each do |f|
-  describe file(f) do
-    it { should be_file }
-    it { should be_mode 755 }
-    it { should be_owned_by ENV['CONSUL_OWNER'] }
-    it { should be_grouped_into ENV['CONSUL_GROUP'] }
-  end
-end
 describe file('/opt/consul/daemons.py') do
-  its(:content) { should match /\/opt\/consul\/services\.sh/ }
+  it { should be_file }
+  it { should be_mode 755 }
+  it { should be_owned_by ENV['CONSUL_OWNER'] }
+  it { should be_grouped_into ENV['CONSUL_GROUP'] }
   its(:content) { should match /\/var\/log\/consul\/stdout\.log/ }
   its(:content) { should match /\/var\/log\/consul\/stderr\.log/ }
   its(:content) { should match /\/var\/run\/consul\/consul\.pid/ }
