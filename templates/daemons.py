@@ -19,7 +19,7 @@ stdout = open('{{ consul_daemon_log_dir }}/stdout.log', mode='a+')
 stderr = open('{{ consul_daemon_log_dir }}/stderr.log', mode='a+')
 pidfile = PIDLockFile('{{ consul_daemon_pid_dir }}/consul.pid')
 
-context_settings = dict(help_option_names=['-h', '--help'])
+cli_context_settings = dict(help_option_names=['-h', '--help'])
 
 
 def do_start(mode):
@@ -41,7 +41,7 @@ def do_stop():
     os.killpg(pgid, signal.SIGTERM)
 
 
-@click.group(context_settings=context_settings)
+@click.group(context_settings=cli_context_settings)
 def consul_cli():
     '''
     CLI to manage Consul daemon processes.
