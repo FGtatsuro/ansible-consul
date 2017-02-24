@@ -27,9 +27,12 @@
       group: "{{ consul_group }}"
       state: 'directory'
     when: not stat_daemon_pid_dir.stat.exists
-  - name: Resolve the dependency of daemon script
+  - name: Resolve the dependencies of daemon script
     pip:
-      name: python-daemon
+      name: "{{ item }}"
+    with_items:
+      - python-daemon
+      - click
   - name: Set run/daemon scripts
     template:
       src: "{{ item }}"
