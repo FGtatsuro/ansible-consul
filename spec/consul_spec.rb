@@ -20,6 +20,7 @@ describe file('/opt/consul/daemons.py') do
   its(:content) { should match /\/var\/log\/consul\/stdout\.log/ }
   its(:content) { should match /\/var\/log\/consul\/stderr\.log/ }
   its(:content) { should match /\/var\/run\/consul\/consul\.pid/ }
+  its(:content) { should match /-config-dir=\/etc\/consul\.d/ }
 end
 
 describe package('python-daemon') do
