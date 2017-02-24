@@ -31,7 +31,13 @@ def do_start(mode):
 
 
 def do_stop():
-    os.killpg(os.getpgid(pidfile.read_pid()), signal.SIGTERM)
+    pid = pidfile.read_pid()
+    if not pid:
+        stderr.write("Stop operation is failed. Now, daemon process isn't running.\n")
+        stderr.flush()
+        sys.exit(1)
+    pgid = os.getpgid(pidfile.read_pid())
+    os.killpg(pgid, signal.SIGTERM)
 
 
 @click.group(context_settings=context_settings)
