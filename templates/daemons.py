@@ -62,6 +62,8 @@ def start(consul_agent_options):
     \b
     # '--' is needed to pass option-like values to this script.
     daemon.py start -- -dev -bind=192.168.1.3
+
+    About options of 'consul agent', please check https://www.consul.io/docs/agent/options.html.
     '''
     do_start(list(consul_agent_options))
 
@@ -84,6 +86,8 @@ def restart(consul_agent_options):
     \b
     # '--' is needed to pass option-like values to this script.
     daemon.py restart -- -dev -bind=192.168.1.3
+
+    About options of 'consul agent', please check https://www.consul.io/docs/agent/options.html.
     '''
     do_stop()
     do_start(list(consul_agent_options))
