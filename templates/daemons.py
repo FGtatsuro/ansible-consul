@@ -24,7 +24,7 @@ context_settings = dict(help_option_names=['-h', '--help'])
 
 def do_start(mode):
     commands = ['{{ consul_script_remote_dir }}/services.sh', mode]
-    with daemon.DaemonContext(stdout=stdout, stderr=stderr, pidfile=pidfile) as context:
+    with daemon.DaemonContext(stdout=stdout, stderr=stderr, pidfile=pidfile):
         child_process = subprocess.Popen(commands)
         child_process.communicate()
         child_process.terminate()
@@ -33,7 +33,8 @@ def do_start(mode):
 def do_stop():
     pid = pidfile.read_pid()
     if not pid:
-        stderr.write("Stop operation is failed. Now, daemon process isn't running.\n")
+        stderr.write(
+            "Stop operation is failed. Now, daemon process isn't running.\n")
         stderr.flush()
         sys.exit(1)
     pgid = os.getpgid(pidfile.read_pid())
