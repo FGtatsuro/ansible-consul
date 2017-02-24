@@ -57,6 +57,8 @@ If you want to overwrite values, please also check https://www.consul.io/downloa
 |consul_download_tmppath|File path downloaded Consul archive is put temporary.|str|/tmp/consul.zip|
 |consul_bin_dir|Directory path Consul binary is put|str|/usr/local/bin|
 
+- `consul_bin_dir` should exist in `PATH` environment variable. Or the daemon script can't work well.
+
 Role Dependencies
 -----------------
 

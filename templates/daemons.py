@@ -19,11 +19,14 @@ stdout = open('{{ consul_daemon_log_dir }}/stdout.log', mode='a+')
 stderr = open('{{ consul_daemon_log_dir }}/stderr.log', mode='a+')
 pidfile = PIDLockFile('{{ consul_daemon_pid_dir }}/consul.pid')
 
-cli_context_settings = dict(help_option_names=['-h', '--help'])
+cli_context_settings = dict(
+        help_option_names=['-h', '--help'],
+        ignore_unknown_options=True)
 
 
-def do_start(mode):
-    commands = ['{{ consul_script_remote_dir }}/services.sh', mode]
+def do_start(options):
+    # NOTE: Set proper PATH environment to access consul command.
+    commands = ['consul', 'agent'] + options
     with daemon.DaemonContext(stdout=stdout, stderr=stderr, pidfile=pidfile):
         child_process = subprocess.Popen(commands)
         child_process.communicate()
@@ -50,12 +53,17 @@ def consul_cli():
 
 
 @consul_cli.command()
-@click.argument('mode', type=click.Choice(['dev', 'client', 'server']))
-def start(mode):
+@click.argument('consul_agent_options', nargs=-1, type=click.UNPROCESSED)
+def start(consul_agent_options):
     '''
     Start Consul daemon processes on MODE(dev/client/server).
+    This command accepts all options of 'consul agent'. For example,
+
+    \b
+    # '--' is needed to pass option-like values to this script.
+    daemon.py start -- -dev -bind=192.168.1.3
     '''
-    do_start(mode)
+    do_start(list(consul_agent_options))
 
 
 @consul_cli.command()
@@ -67,13 +75,18 @@ def stop():
 
 
 @consul_cli.command()
-@click.argument('mode', type=click.Choice(['dev', 'client', 'server']))
-def restart(mode):
+@click.argument('consul_agent_options', nargs=-1, type=click.UNPROCESSED)
+def restart(consul_agent_options):
     '''
     Restart Consul daemon processes on MODE(dev/client/server).
+    This command accepts all options of 'consul agent'. For example,
+
+    \b
+    # '--' is needed to pass option-like values to this script.
+    daemon.py restart -- -dev -bind=192.168.1.3
     '''
     do_stop()
-    do_start(mode)
+    do_start(list(consul_agent_options))
 
 if __name__ == '__main__':
     consul_cli()
