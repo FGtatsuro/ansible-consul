@@ -1,8 +1,0 @@
-{
-  "data_dir": "/tmp/consul",
-  "bind_addr": "10.5.2.55",
-  "client_addr": "10.5.2.55",
-  "ports": {
-    "dns": 53
-  }
-}

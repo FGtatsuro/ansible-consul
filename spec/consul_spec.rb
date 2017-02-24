@@ -45,6 +45,13 @@ describe file('/var/run/consul/') do
   it { should be_grouped_into ENV['CONSUL_GROUP'] }
 end
 
+describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
+    it { should be_file }
+    it { should be_readable }
+    it { should be_owned_by ENV['CONSUL_OWNER'] }
+    it { should be_grouped_into ENV['CONSUL_GROUP'] }
+end
+
 # Custom settings
 [
   "#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/web.json",

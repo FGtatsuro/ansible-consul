@@ -30,3 +30,10 @@ describe file('/var/run/consul/consul.pid') do
   it { should be_owned_by ENV['CONSUL_OWNER'] }
   it { should be_grouped_into ENV['CONSUL_GROUP'] }
 end
+
+# From a default config file
+describe file('/tmp/consul/serf') do
+  it { should be_directory }
+  it { should be_owned_by ENV['CONSUL_OWNER'] }
+  it { should be_grouped_into ENV['CONSUL_GROUP'] }
+end

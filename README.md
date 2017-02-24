@@ -24,13 +24,13 @@ The variables we can use in this role.
 
 |name|description|type|default|
 |---|---|---|---|
-|consul_config_src_dir|Directory including Consul config files on local. Config files are copied to `consul_config_remote_dir` directory on remote.|str|It isn't defined in default. No Consul config file is copied to remote.|
-|consul_config_remote_dir|Directory including Consul config files on remote. In almost cases, this value will be passed with `-config-dir` option of Consul. It's owned by `consul_owner`.|str|/etc/consul.d|
+|consul_config_src_dir|Directory including additional Consul config files on local. Config files are copied to `consul_config_remote_dir` directory on remote.|str|It isn't defined in default. No additional Consul config file is copied to remote.|
+|consul_config_remote_dir|Directory including Consul config files on remote. This value will be passed to daemon script as `-config-dir` option of Consul. <br>It's owned by `consul_owner`.|str|/etc/consul.d|
 |consul_owner|User of components related to Consul. This user should have the permission to run daemon script.|str|consul|
 |consul_group|Group of components related to Consul.|str|consul|
 
 - The value of `consul_config_src_dir` is used as 'src' attribute of Ansible copy module. Thus, whether this value ends with '/' affects the behavior. (Ref. http://docs.ansible.com/ansible/copy_module.html)
-- The values of `consul_config_remote_dir` is ignored when `consul_config_src_dir` isn't defined.
+- Even if `consul_config_src_dir` isn't defined, `consul_config_remote_dir` has a default config file generated from [./templates/consul_common.json](./templates/consul_common.json).
 
 ### Only not-container
 
@@ -39,9 +39,9 @@ Container doesn't use daemon script because main program in container must run o
 
 |name|description|type|default|
 |---|---|---|---|
-|consul_daemon_log_dir|Directory including log files of daemon(named `stdout.log` and `stderr.log`). It's owned by `consul_owner`.|str|/var/log/consul|
-|consul_daemon_pid_dir|Directory including PID file of daemon(named `consul.pid`). It's owned by `consul_owner`.|str|/var/run/consul|
-|consul_daemon_script_dir|Directory including daemon script(named `daemons.py`). It's owned by `consul_owner`.|str|/opt/consul|
+|consul_daemon_log_dir|Directory including log files of daemon(named `stdout.log` and `stderr.log`). <br>It's owned by `consul_owner`.|str|/var/log/consul|
+|consul_daemon_pid_dir|Directory including PID file of daemon(named `consul.pid`). <br>It's owned by `consul_owner`.|str|/var/run/consul|
+|consul_daemon_script_dir|Directory including daemon script(named `daemons.py`). <br>It's owned by `consul_owner`.|str|/opt/consul|
 
 - It's better to use dedicated directories for `consul_daemon_log_dir` and `consul_daemon_pid_dir`.
   If you use existing directores(ex. `/var/log`, `/var/run`), this role mayn't work well.
