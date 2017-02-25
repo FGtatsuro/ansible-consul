@@ -13,7 +13,7 @@ namespace :spec do
       :consul_owner  =>  'travis',
       :consul_group  =>  'staff',
       :consul_node_name =>  'travis_consul',
-      :has_consul_addr  =>  true,
+      :has_consul_addr  =>  'true',
       :pattern  =>  'spec/consul_spec.rb,spec/consul_daemon_dev_spec.rb'
     },
     {
