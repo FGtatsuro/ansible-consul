@@ -63,6 +63,16 @@ else
   end
 end
 
+if ENV['HAS_CONSUL_ADDR'] then
+  describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
+    its(:content) { should match /bind_addr/ }
+  end
+else
+  describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
+    its(:content) { should_not match /bind_addr/ }
+  end
+end
+
 # Custom settings
 [
   "#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/web.json",
