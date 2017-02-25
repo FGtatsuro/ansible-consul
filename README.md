@@ -31,6 +31,13 @@ The variables we can use in this role.
 
 - The value of `consul_config_src_dir` is used as 'src' attribute of Ansible copy module. Thus, whether this value ends with '/' affects the behavior. (Ref. http://docs.ansible.com/ansible/copy_module.html)
 - Even if `consul_config_src_dir` isn't defined, `consul_config_remote_dir` has a default config file generated from [./templates/consul_common.json](./templates/consul_common.json).
+  The variables related to this default config file are as follows.
+
+|name|description|type|default|
+|---|---|---|---|
+|consul_default_config_datadir|It collesponds to [data_dir](https://www.consul.io/docs/agent/options.html#data_dir) of Consul config.|str|/tmp/consul|
+
+- If you want to overwrite values, please also check https://www.consul.io/docs/agent/options.html
 
 ### Only not-container
 
@@ -46,9 +53,9 @@ Container doesn't use daemon script because main program in container must run o
 - It's better to use dedicated directories for `consul_daemon_log_dir` and `consul_daemon_pid_dir`.
   If you use existing directores(ex. `/var/log`, `/var/run`), this role mayn't work well.
 
-### Only Debian/Alpine Linux
+### Only Linux
 
-If you want to overwrite values, please also check https://www.consul.io/downloads.html.
+These values are meaningful only on Linux.
 
 |name|description|type|default|
 |---|---|---|---|
@@ -58,6 +65,7 @@ If you want to overwrite values, please also check https://www.consul.io/downloa
 |consul_bin_dir|Directory path Consul binary is put|str|/usr/local/bin|
 
 - `consul_bin_dir` should exist in `PATH` environment variable. Or the daemon script can't work well.
+- If you want to overwrite values, please also check https://www.consul.io/downloads.html.
 
 Role Dependencies
 -----------------
