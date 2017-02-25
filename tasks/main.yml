@@ -35,7 +35,7 @@
       - click
   - name: Set daemon scripts
     template:
-      src: "daemons.py"
+      src: "daemons.py.j2"
       dest: "{{ consul_daemon_script_dir }}/daemons.py"
       owner: "{{ consul_owner }}"
       group: "{{ consul_group }}"
@@ -50,8 +50,8 @@
       state: 'directory'
   - name: Set a default config file
     template:
-      src: 'consul_common.json'
-      dest: "{{ consul_config_remote_dir }}"
+      src: 'consul_common.json.j2'
+      dest: "{{ consul_config_remote_dir }}/consul_common.json"
       owner: "{{ consul_owner }}"
       group: "{{ consul_group }}"
   - name: set additional config files

@@ -30,7 +30,7 @@ The variables we can use in this role.
 |consul_group|Group of components related to Consul.|str|consul|
 
 - The value of `consul_config_src_dir` is used as 'src' attribute of Ansible copy module. Thus, whether this value ends with '/' affects the behavior. (Ref. http://docs.ansible.com/ansible/copy_module.html)
-- Even if `consul_config_src_dir` isn't defined, `consul_config_remote_dir` has a default config file generated from [./templates/consul_common.json](./templates/consul_common.json).
+- Even if `consul_config_src_dir` isn't defined, `consul_config_remote_dir` has a default config file generated from [./templates/consul_common.json.j2](./templates/consul_common.json.j2).
   The variables related to this default config file are as follows.
 
 |name|description|type|default|
