@@ -35,7 +35,7 @@ The variables we can use in this role.
 
 |name|description|type|default|
 |---|---|---|---|
-|consul_default_config_datadir|In Consul configuration, it collesponds to [data_dir](https://www.consul.io/docs/agent/options.html#data_dir).|str|/tmp/consul|
+|consul_default_config_data_dir|In Consul configuration, it collesponds to [data_dir](https://www.consul.io/docs/agent/options.html#data_dir).|str|/tmp/consul|
 |consul_default_config_node_name|In Consul configuration, it collesponds to [node_name](https://www.consul.io/docs/agent/options.html#node_name).|str|It isn't defined in default.|
 
 - If you want to overwrite values, please also check https://www.consul.io/docs/agent/options.html
