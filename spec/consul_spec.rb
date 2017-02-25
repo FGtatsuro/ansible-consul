@@ -51,7 +51,16 @@ describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
   it { should be_owned_by ENV['CONSUL_OWNER'] }
   it { should be_grouped_into ENV['CONSUL_GROUP'] }
   its(:content) { should match /#{Regexp.escape('"data_dir": "/tmp/consul"')}/ }
-  its(:content) { should match /#{Regexp.escape('"node_name": "travis_consul"')}/ }
+end
+
+if ENV['CONSUL_NODE_NAME'] then
+  describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
+    its(:content) { should match /#{Regexp.escape("\"node_name\": \"#{ENV['CONSUL_NODE_NAME']}\"")}/ }
+  end
+else
+  describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
+    its(:content) { should_not match /node_name/ }
+  end
 end
 
 # Custom settings
