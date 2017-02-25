@@ -6,4 +6,7 @@
 {% if consul_default_config_bind_addr is defined %}
   ,"bind_addr": "{{ consul_default_config_bind_addr }}"
 {% endif %}
+{% if consul_default_config_client_addr is defined %}
+  ,"client_addr": "{{ consul_default_config_client_addr }}"
+{% endif %}
 }

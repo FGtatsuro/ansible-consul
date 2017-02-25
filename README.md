@@ -32,12 +32,14 @@ The variables we can use in this role.
 - The value of `consul_config_src_dir` is used as 'src' attribute of Ansible copy module. Thus, whether this value ends with '/' affects the behavior. (Ref. http://docs.ansible.com/ansible/copy_module.html)
 - Even if `consul_config_src_dir` isn't defined, `consul_config_remote_dir` has a default config file generated from [./templates/consul_common.json.j2](./templates/consul_common.json.j2).
   The variables related to this default config file are as follows.
+  If you want to overwrite these values, please also check https://www.consul.io/docs/agent/options.html
 
 |name|description|type|default|
 |---|---|---|---|
 |consul_default_config_data_dir|In Consul configuration, it collesponds to [data_dir](https://www.consul.io/docs/agent/options.html#data_dir).|str|/tmp/consul|
 |consul_default_config_node_name|In Consul configuration, it collesponds to [node_name](https://www.consul.io/docs/agent/options.html#node_name).|str|It isn't defined in default.|
 |consul_default_config_bind_addr|In Consul configuration, it collesponds to [bind_addr](https://www.consul.io/docs/agent/options.html#bind_addr).|str|It isn't defined in default.|
+|consul_default_config_client_addr|In Consul configuration, it collesponds to [client_addr](https://www.consul.io/docs/agent/options.html#client_addr).|str|It isn't defined in default.|
 
 - If you want to overwrite values, please also check https://www.consul.io/docs/agent/options.html
 
