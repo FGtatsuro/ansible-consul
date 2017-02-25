@@ -17,10 +17,10 @@ describe file('/opt/consul/daemons.py') do
   it { should be_mode 755 }
   it { should be_owned_by ENV['CONSUL_OWNER'] }
   it { should be_grouped_into ENV['CONSUL_GROUP'] }
-  its(:content) { should match /\/var\/log\/consul\/stdout\.log/ }
-  its(:content) { should match /\/var\/log\/consul\/stderr\.log/ }
-  its(:content) { should match /\/var\/run\/consul\/consul\.pid/ }
-  its(:content) { should match /-config-dir=\/etc\/consul\.d/ }
+  its(:content) { should match /#{Regexp.escape('/var/log/consul/stdout.log')}/ }
+  its(:content) { should match /#{Regexp.escape('/var/log/consul/stderr.log')}/ }
+  its(:content) { should match /#{Regexp.escape('/var/run/consul/consul.pid')}/ }
+  its(:content) { should match /#{Regexp.escape("-config-dir=#{ENV['CONSUL_CONFIG_REMOTE_DIR']}")}/ }
 end
 
 describe package('python-daemon') do
