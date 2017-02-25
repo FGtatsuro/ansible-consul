@@ -29,7 +29,6 @@ matrix:
         - ps -ef | grep consul
         - cat /var/log/consul/stdout.log
         - cat /var/log/consul/stderr.log
-        - ls -alt /tmp/consul
         - bundle exec rake spec SPEC_TARGET=${TARGET}
         - /opt/consul/daemons.py stop
         # For debug
