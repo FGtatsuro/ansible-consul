@@ -1,3 +1,6 @@
 {
   "data_dir": "{{ consul_default_config_datadir }}"
+{% if consul_default_config_node_name is defined %}
+  ,"node_name": "{{ consul_default_config_node_name }}"
+{% endif %}
 }

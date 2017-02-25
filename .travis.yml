@@ -24,7 +24,7 @@ matrix:
         - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
         - ansible-playbook tests/test.yml -i tests/inventory -l ${TARGET} --extra-vars="${EXTRA_VARS}" -vvvv
         - export CONSUL_BIND_ADDRESS=`ifconfig en0 | awk '/inet / {printf $2}'`
-        - /opt/consul/daemons.py start -- -dev -config-dir=/Users/travis/consul.d -bind=${CONSUL_BIND_ADDRESS} -client=${CONSUL_BIND_ADDRESS} -node=travis_consul
+        - /opt/consul/daemons.py start -- -dev -config-dir=/Users/travis/consul.d -bind=${CONSUL_BIND_ADDRESS} -client=${CONSUL_BIND_ADDRESS}
         # For debug
         - ps -ef | grep consul
         - cat /var/log/consul/stdout.log
@@ -37,7 +37,9 @@ matrix:
         - TARGET=localhost
         # Workaround for OSX.
         - PYTHONPATH="/Library/Python/2.7/site-packages:$PYTHONPATH"
-        - EXTRA_VARS="consul_config_src_dir='../tests/consul.d/' consul_config_remote_dir='/Users/travis/consul.d' consul_owner='travis' consul_group='staff'"
+        - >+
+          EXTRA_VARS="consul_config_src_dir='../tests/consul.d/' consul_config_remote_dir='/Users/travis/consul.d'
+          consul_owner='travis' consul_group='staff' consul_default_config_node_name='travis_consul'"
     - os: linux
       dist: trusty
       language: python
