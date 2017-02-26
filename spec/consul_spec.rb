@@ -106,6 +106,15 @@ else
   end
 end
 
+if ENV['CONSUL_SERVER'] then
+  describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
+    its(:content) { should match /"server": true/ }
+  end
+else
+  describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
+    its(:content) { should_not match /"server": true/ }
+  end
+end
 
 # Custom settings
 [

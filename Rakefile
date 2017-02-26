@@ -47,6 +47,7 @@ namespace :spec do
       ENV['CONSUL_DNS_PORT'] = host[:consul_dns_port]
       ENV['CONSUL_BOOTSTRAP_EXPECT'] = host[:consul_bootstrap_expect]
       ENV['CONSUL_START_JOIN'] = host[:consul_start_join]
+      ENV['CONSUL_SERVER'] = host[:consul_server]
       t.pattern = host[:pattern]
     end
   end
