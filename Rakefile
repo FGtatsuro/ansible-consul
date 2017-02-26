@@ -13,8 +13,8 @@ namespace :spec do
       :consul_owner  =>  'travis',
       :consul_group  =>  'staff',
       :consul_node_name =>  'travis_consul',
-      :has_consul_addr  =>  'true',
       :consul_dns_port  =>  '9000',
+      :consul_bind_interface  =>  'en0',
       :pattern  =>  'spec/consul_spec.rb,spec/consul_daemon_dev_spec.rb'
     },
     {
@@ -43,7 +43,19 @@ namespace :spec do
       ENV['CONSUL_OWNER'] = host[:consul_owner]
       ENV['CONSUL_GROUP'] = host[:consul_group]
       ENV['CONSUL_NODE_NAME'] = host[:consul_node_name]
-      ENV['HAS_CONSUL_ADDR'] = host[:has_consul_addr]
+      ENV['CONSUL_BIND_ADDR'] = host[:consul_bind_addr]
+      ENV['CONSUL_CLIENT_ADDR'] = host[:consul_client_addr]
+      if host[:consul_bind_interface] then
+
+        # Traivs specified.
+        # IPAddress on Ruby: http://qiita.com/suu_g/items/a03af621f5d6985879e0
+        require 'socket'
+        private_ip = Socket.getifaddrs.select {|a|
+          a.name == host[:consul_bind_interface] && a.addr.ipv4?
+        }.first.addr.ip_address
+        ENV['CONSUL_BIND_ADDR'] = private_ip
+        ENV['CONSUL_CLIENT_ADDR'] = private_ip
+      end
       ENV['CONSUL_DNS_PORT'] = host[:consul_dns_port]
       ENV['CONSUL_BOOTSTRAP_EXPECT'] = host[:consul_bootstrap_expect]
       ENV['CONSUL_START_JOIN'] = host[:consul_start_join]
