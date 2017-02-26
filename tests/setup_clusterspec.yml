@@ -2,4 +2,5 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - { role: FGtatsuro.vagrant }
+    - role: FGtatsuro.vagrant
+      virtualbox_apt_package: virtualbox-5.0

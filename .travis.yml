@@ -95,7 +95,7 @@ matrix:
         - bundle install
       before_script:
         - sudo apt-get install linux-headers-4.4.0-51-generic
-        - sudo /sbin/vboxconfig
+        - sudo /sbin/rcvboxdrv setup
         - VBoxManage --version
         - vagrant up
       after_script:
