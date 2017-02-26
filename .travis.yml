@@ -43,7 +43,7 @@ matrix:
         - PYTHONPATH="/Library/Python/2.7/site-packages:$PYTHONPATH"
         - >+
           EXTRA_VARS="consul_config_src_dir='../tests/consul.d/' consul_config_remote_dir='/Users/travis/consul.d'
-          consul_owner='travis' consul_group='staff' consul_default_config_node_name='travis_consul' consul_default_config_dns_port=53"
+          consul_owner='travis' consul_group='staff' consul_default_config_node_name='travis_consul' consul_default_config_dns_port=9000"
     - os: linux
       dist: trusty
       language: python
