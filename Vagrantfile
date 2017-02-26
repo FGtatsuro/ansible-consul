@@ -11,10 +11,17 @@ Vagrant.configure("2") do |config|
   config.vm.define "server" do |server|
     config.vm.network "private_network", ip: "192.168.50.1"
     server.vm.synced_folder ".", "/vagrant", disabled: true
+
+    # https://github.com/puphpet/puphpet/issues/2462
+    # http://stackoverflow.com/questions/40968297/laravel-homestead-hangs-at-ssh-auth-method-private-key-on-mac
+    # http://stackoverflow.com/questions/38463579/vagrant-hangs-at-ssh-auth-method-private-key
+    # https://github.com/mitchellh/vagrant/issues/7648
+    server.customize ['modifyvm', :id, '--cableconnected1', 'on']
   end
 
   config.vm.define "client" do |client|
     config.vm.network "private_network", ip: "192.168.50.2"
     client.vm.synced_folder ".", "/vagrant", disabled: true
+    client.customize ['modifyvm', :id, '--cableconnected1', 'on']
   end
 end
