@@ -94,6 +94,9 @@ matrix:
         - ansible-playbook tests/setup_clusterspec.yml -i tests/inventory -l localhost -vvvv
         - bundle install
       before_script:
+        - sudo apt-get install linux-headers-4.4.0-51-generic
+        - sudo /sbin/vboxconfig
+        - VBoxManage --version
         - vagrant up
       after_script:
         - vagrant destroy
