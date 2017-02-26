@@ -10,11 +10,13 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "server" do |server|
     server.vm.network "private_network", ip: "192.168.50.2"
+    server.vm.network :forwarded_port, id: "ssh", guest: 22, host: 2223
     server.vm.synced_folder ".", "/vagrant", disabled: true
   end
 
   config.vm.define "client" do |client|
     client.vm.network "private_network", ip: "192.168.50.3"
+    client.vm.network :forwarded_port, id: "ssh", guest: 22, host: 2224
     client.vm.synced_folder ".", "/vagrant", disabled: true
   end
 end

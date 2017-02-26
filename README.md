@@ -99,6 +99,18 @@ Local requirements are as follows.
 - Ansible (>= 2.0.0)
 - Docker (>= 1.10.1)
 
+Test on Vagrant VM
+------------------
+
+To confirm the behavior of Consul cluster(server-client mode), we run tests on Vagrant VMs.
+
+```
+$ pip install ansible
+$ ansible-galaxy install FGtatsuro.python-requirements
+$ vagrant up
+$ ansible-playbook tests/test.yml -i tests/inventory -l cluster
+```
+
 License
 -------
 
