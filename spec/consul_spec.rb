@@ -75,6 +75,17 @@ else
   end
 end
 
+if ENV['CONSUL_DNS_PORT'] then
+  describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
+    its(:content) { should match /#{Regexp.escape(
+                                    "\"ports\": {\"dns\": #{ENV['CONSUL_DNS_PORT']} }")}/ }
+  end
+else
+  describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
+    its(:content) { should_not match /"ports": {"dns"/ }
+  end
+end
+
 # Custom settings
 [
   "#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/web.json",

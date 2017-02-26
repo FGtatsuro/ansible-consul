@@ -40,6 +40,7 @@ The variables we can use in this role.
 |consul_default_config_node_name|In Consul configuration, it collesponds to [node_name](https://www.consul.io/docs/agent/options.html#node_name).|str|It isn't defined in default.|
 |consul_default_config_bind_addr|In Consul configuration, it collesponds to [bind_addr](https://www.consul.io/docs/agent/options.html#bind_addr).|str|It isn't defined in default.|
 |consul_default_config_client_addr|In Consul configuration, it collesponds to [client_addr](https://www.consul.io/docs/agent/options.html#client_addr).|str|It isn't defined in default.|
+|consul_default_config_dns_port|In Consul configuration, it collesponds to [dns in ports](https://www.consul.io/docs/agent/options.html#dns_port).|int|It isn't defined in default.|
 
 - If you want to overwrite values, please also check https://www.consul.io/docs/agent/options.html
 

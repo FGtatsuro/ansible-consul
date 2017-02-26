@@ -9,4 +9,7 @@
 {% if consul_default_config_client_addr is defined %}
   ,"client_addr": "{{ consul_default_config_client_addr }}"
 {% endif %}
+{% if consul_default_config_dns_port is defined %}
+  ,"ports": {"dns": {{ consul_default_config_dns_port}} }
+{% endif %}
 }

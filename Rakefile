@@ -14,6 +14,7 @@ namespace :spec do
       :consul_group  =>  'staff',
       :consul_node_name =>  'travis_consul',
       :has_consul_addr  =>  'true',
+      :consul_dns_port  =>  '53',
       :pattern  =>  'spec/consul_spec.rb,spec/consul_daemon_dev_spec.rb'
     },
     {
@@ -43,6 +44,7 @@ namespace :spec do
       ENV['CONSUL_GROUP'] = host[:consul_group]
       ENV['CONSUL_NODE_NAME'] = host[:consul_node_name]
       ENV['HAS_CONSUL_ADDR'] = host[:has_consul_addr]
+      ENV['CONSUL_DNS_PORT'] = host[:consul_dns_port]
       t.pattern = host[:pattern]
     end
   end
