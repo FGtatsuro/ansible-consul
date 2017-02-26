@@ -96,6 +96,17 @@ else
   end
 end
 
+if ENV['CONSUL_START_JOIN'] then
+  describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
+    its(:content) { should match /"start_join": \["#{ENV['CONSUL_BOOTSTRAP_EXPECT']}"\]/ }
+  end
+else
+  describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
+    its(:content) { should_not match /start_join/ }
+  end
+end
+
+
 # Custom settings
 [
   "#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/web.json",

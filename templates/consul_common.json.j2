@@ -15,4 +15,7 @@
 {% if consul_default_config_bootstrap_expect is defined %}
   ,"bootstrap_expect": {{ consul_default_config_bootstrap_expect }}
 {% endif %}
+{% if consul_default_config_start_join is defined %}
+  ,"start_join": ["{{ consul_default_config_start_join }}"]
+{% endif %}
 }
