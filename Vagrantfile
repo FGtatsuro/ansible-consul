@@ -9,10 +9,12 @@ Vagrant.configure("2") do |config|
   config.vm.box = "mvbcoding/awslinux"
 
   config.vm.define "server" do |server|
+    config.vm.network "private_network", ip: "192.168.50.1"
     server.vm.synced_folder ".", "/vagrant", disabled: true
   end
 
   config.vm.define "client" do |client|
+    config.vm.network "private_network", ip: "192.168.50.2"
     client.vm.synced_folder ".", "/vagrant", disabled: true
   end
 end
