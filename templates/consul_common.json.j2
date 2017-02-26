@@ -1,0 +1,24 @@
+{
+  "data_dir": "{{ consul_default_config_data_dir }}"
+{% if consul_default_config_node_name is defined %}
+  ,"node_name": "{{ consul_default_config_node_name }}"
+{% endif %}
+{% if consul_default_config_bind_addr is defined %}
+  ,"bind_addr": "{{ consul_default_config_bind_addr }}"
+{% endif %}
+{% if consul_default_config_client_addr is defined %}
+  ,"client_addr": "{{ consul_default_config_client_addr }}"
+{% endif %}
+{% if consul_default_config_dns_port is defined %}
+  ,"ports": {"dns": {{ consul_default_config_dns_port}} }
+{% endif %}
+{% if consul_default_config_bootstrap_expect is defined %}
+  ,"bootstrap_expect": {{ consul_default_config_bootstrap_expect }}
+{% endif %}
+{% if consul_default_config_start_join is defined %}
+  ,"start_join": ["{{ consul_default_config_start_join }}"]
+{% endif %}
+{% if consul_default_config_server is defined %}
+  ,"server": true
+{% endif %}
+}

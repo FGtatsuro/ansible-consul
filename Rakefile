@@ -12,6 +12,9 @@ namespace :spec do
       :consul_config_remote_dir =>  '/Users/travis/consul.d',
       :consul_owner  =>  'travis',
       :consul_group  =>  'staff',
+      :consul_node_name =>  'travis_consul',
+      :has_consul_addr  =>  'true',
+      :consul_dns_port  =>  '9000',
       :pattern  =>  'spec/consul_spec.rb,spec/consul_daemon_dev_spec.rb'
     },
     {
@@ -39,6 +42,12 @@ namespace :spec do
       ENV['CONSUL_CONFIG_REMOTE_DIR'] = host[:consul_config_remote_dir]
       ENV['CONSUL_OWNER'] = host[:consul_owner]
       ENV['CONSUL_GROUP'] = host[:consul_group]
+      ENV['CONSUL_NODE_NAME'] = host[:consul_node_name]
+      ENV['HAS_CONSUL_ADDR'] = host[:has_consul_addr]
+      ENV['CONSUL_DNS_PORT'] = host[:consul_dns_port]
+      ENV['CONSUL_BOOTSTRAP_EXPECT'] = host[:consul_bootstrap_expect]
+      ENV['CONSUL_START_JOIN'] = host[:consul_start_join]
+      ENV['CONSUL_SERVER'] = host[:consul_server]
       t.pattern = host[:pattern]
     end
   end

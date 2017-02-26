@@ -26,7 +26,7 @@ cli_context_settings = dict(
 
 def do_start(options):
     # NOTE: Set proper PATH environment to access consul command.
-    commands = ['consul', 'agent'] + options
+    commands = ['consul', 'agent', '-config-dir={{ consul_config_remote_dir }}'] + options
     with daemon.DaemonContext(stdout=stdout, stderr=stderr, pidfile=pidfile):
         child_process = subprocess.Popen(commands)
         child_process.communicate()
@@ -55,39 +55,33 @@ def consul_cli():
 @consul_cli.command()
 @click.argument('consul_agent_options', nargs=-1, type=click.UNPROCESSED)
 def start(consul_agent_options):
-    '''
-    Start Consul daemon processes on MODE(dev/client/server).
+    '''Start Consul daemon processes on MODE(dev/client/server).
+
     This command accepts all options of 'consul agent'. For example,
 
     \b
     # '--' is needed to pass option-like values to this script.
     daemon.py start -- -dev -bind=192.168.1.3
 
-    About options of 'consul agent', please check https://www.consul.io/docs/agent/options.html.
+    1. An option -config-dir={{ consul_config_remote_dir }} is added automatically.
+
+    2. About other options of 'consul agent', please check https://www.consul.io/docs/agent/options.html.
     '''
     do_start(list(consul_agent_options))
 
 
 @consul_cli.command()
 def stop():
-    '''
-    Stop Consul daemon processes.
-    '''
+    '''Stop Consul daemon processes.'''
     do_stop()
 
 
 @consul_cli.command()
 @click.argument('consul_agent_options', nargs=-1, type=click.UNPROCESSED)
 def restart(consul_agent_options):
-    '''
-    Restart Consul daemon processes on MODE(dev/client/server).
-    This command accepts all options of 'consul agent'. For example,
+    '''Restart Consul daemon processes on MODE(dev/client/server).
 
-    \b
-    # '--' is needed to pass option-like values to this script.
-    daemon.py restart -- -dev -bind=192.168.1.3
-
-    About options of 'consul agent', please check https://www.consul.io/docs/agent/options.html.
+    This command accepts same options of 'start'.
     '''
     do_stop()
     do_start(list(consul_agent_options))

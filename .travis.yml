@@ -22,9 +22,13 @@ matrix:
       script:
         # Basic role syntax check
         - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
-        - ansible-playbook tests/test.yml -i tests/inventory -l ${TARGET} --extra-vars="${EXTRA_VARS}" -vvvv
-        - export CONSUL_BIND_ADDRESS=`ifconfig en0 | awk '/inet / {printf $2}'`
-        - /opt/consul/daemons.py start -- -dev -config-dir=/Users/travis/consul.d -bind=${CONSUL_BIND_ADDRESS} -client=${CONSUL_BIND_ADDRESS} -node=travis_consul
+        - export IP=`ifconfig en0 | awk '/inet / {printf $2}'`
+        # Workaround: env section doesn't support shell execution, thus IP address can't be set to EXTRA_VARS in env section.
+        - >+
+          ansible-playbook tests/test.yml -i tests/inventory -l ${TARGET} --extra-vars="${EXTRA_VARS}
+          consul_default_config_bind_addr=${IP} consul_default_config_client_addr=${IP}"
+          -vvvv
+        - /opt/consul/daemons.py start -- -dev -config-dir=/Users/travis/consul.d
         # For debug
         - ps -ef | grep consul
         - cat /var/log/consul/stdout.log
@@ -37,7 +41,9 @@ matrix:
         - TARGET=localhost
         # Workaround for OSX.
         - PYTHONPATH="/Library/Python/2.7/site-packages:$PYTHONPATH"
-        - EXTRA_VARS="consul_config_src_dir='../tests/consul.d/' consul_config_remote_dir='/Users/travis/consul.d' consul_owner='travis' consul_group='staff'"
+        - >+
+          EXTRA_VARS="consul_config_src_dir='../tests/consul.d/' consul_config_remote_dir='/Users/travis/consul.d'
+          consul_owner='travis' consul_group='staff' consul_default_config_node_name='travis_consul' consul_default_config_dns_port=9000"
     - os: linux
       dist: trusty
       language: python
