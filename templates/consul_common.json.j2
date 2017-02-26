@@ -12,4 +12,7 @@
 {% if consul_default_config_dns_port is defined %}
   ,"ports": {"dns": {{ consul_default_config_dns_port}} }
 {% endif %}
+{% if consul_default_config_bootstrap_expect is defined %}
+  ,"bootstrap_expect": {{ consul_default_config_bootstrap_expect }}
+{% endif %}
 }

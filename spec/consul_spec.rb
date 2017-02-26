@@ -86,6 +86,16 @@ else
   end
 end
 
+if ENV['CONSUL_BOOTSTRAP_EXPECT'] then
+  describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
+    its(:content) { should match /#{Regexp.escape("\"bootstrap_expect\": #{ENV['CONSUL_BOOTSTRAP_EXPECT']}")}/ }
+  end
+else
+  describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
+    its(:content) { should_not match /bootstrap_expect/ }
+  end
+end
+
 # Custom settings
 [
   "#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/web.json",
