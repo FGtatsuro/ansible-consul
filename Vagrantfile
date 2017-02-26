@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = "mvbcoding/awslinux"
 
   config.vm.define "server" do |server|
-    config.vm.network "private_network", ip: "192.168.50.2"
+    server.vm.network "private_network", ip: "192.168.50.2"
     server.vm.synced_folder ".", "/vagrant", disabled: true
 
     # https://github.com/puphpet/puphpet/issues/2462
@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "client" do |client|
-    config.vm.network "private_network", ip: "192.168.50.3"
+    client.vm.network "private_network", ip: "192.168.50.3"
     client.vm.synced_folder ".", "/vagrant", disabled: true
     client.customize ['modifyvm', :id, '--cableconnected1', 'on']
   end
