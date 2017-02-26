@@ -80,6 +80,23 @@ matrix:
         - TARGET=container
         - IMAGE_NAME=fgtatsuro/infra-bridgehead:alpine-3.3
         - EXTRA_VARS="consul_config_src_dir='../tests/consul.d/'"
+    - os: linux
+      dist: trusty
+      language: python
+      python: 2.7
+      addons:
+        apt:
+          packages:
+          - python-pip
+      install:
+        - pip install ansible
+        - ansible-galaxy install FGtatsuro.vagrant
+        - ansible-playbook tests/setup_clusterspec.yml -i tests/inventory -l localhost -vvvv
+        - bundle install
+      before_script:
+        - vagrant up
+      after_script:
+        - vagrant destroy
 
 # This role needs sudo, thus we can't use the new container infrastructure
 # sudo: false
