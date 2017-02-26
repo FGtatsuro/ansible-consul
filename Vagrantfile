@@ -15,8 +15,10 @@ Vagrant.configure("2") do |config|
     # http://stackoverflow.com/questions/40968297/laravel-homestead-hangs-at-ssh-auth-method-private-key-on-mac
     # http://stackoverflow.com/questions/38463579/vagrant-hangs-at-ssh-auth-method-private-key
     # https://github.com/mitchellh/vagrant/issues/7648
+    # https://github.com/mitchellh/packer/issues/3757
     server.vm.provider 'virtualbox' do |vb|
       vb.customize ['modifyvm', :id, '--cableconnected1', 'on']
+      vb.customize ['modifyvm', :id, '--cableconnected2', 'on']
     end
   end
 
@@ -25,6 +27,7 @@ Vagrant.configure("2") do |config|
     client.vm.synced_folder ".", "/vagrant", disabled: true
     client.vm.provider 'virtualbox' do |vb|
       vb.customize ['modifyvm', :id, '--cableconnected1', 'on']
+      vb.customize ['modifyvm', :id, '--cableconnected2', 'on']
     end
   end
 end
