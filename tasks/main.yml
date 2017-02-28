@@ -41,24 +41,25 @@
       group: "{{ consul_group }}"
       mode: '0755'
   become: yes
-- block:
-  - name: Ensure a directory of Consul config exists
-    file:
-      path: "{{ consul_config_remote_dir }}"
-      owner: "{{ consul_owner }}"
-      group: "{{ consul_group }}"
-      state: 'directory'
-  - name: Set a default config file
-    template:
-      src: 'consul_common.json.j2'
-      dest: "{{ consul_config_remote_dir }}/consul_common.json"
-      owner: "{{ consul_owner }}"
-      group: "{{ consul_group }}"
-  - name: set additional config files
-    copy:
-      src: "{{ consul_config_src_dir }}"
-      dest: "{{ consul_config_remote_dir }}"
-      owner: "{{ consul_owner }}"
-      group: "{{ consul_group }}"
+- name: Ensure a directory of Consul configs exists
+  file:
+    path: "{{ consul_config_remote_dir }}"
+    owner: "{{ consul_owner }}"
+    group: "{{ consul_group }}"
+    state: 'directory'
+  become: yes
+- name: Set a default config file
+  template:
+    src: 'consul_common.json.j2'
+    dest: "{{ consul_config_remote_dir }}/consul_common.json"
+    owner: "{{ consul_owner }}"
+    group: "{{ consul_group }}"
+  become: yes
+- name: set additional config files
+  copy:
+    src: "{{ consul_config_src_dir }}"
+    dest: "{{ consul_config_remote_dir }}"
+    owner: "{{ consul_owner }}"
+    group: "{{ consul_group }}"
   when: consul_config_src_dir is defined
   become: yes
