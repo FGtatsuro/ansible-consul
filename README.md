@@ -111,6 +111,8 @@ $ ansible-galaxy install FGtatsuro.vagrant
 $ ansible-playbook tests/setup_clusterspec.yml -i tests/inventory -l localhost
 $ vagrant up
 $ ansible-playbook tests/test.yml -i tests/inventory -l cluster
+$ vagrant ssh server -c "sudo su -l consul -c '/opt/consul/daemons.py start -- -config-dir=/etc/consul.d'"
+$ vagrant ssh client -c "sudo su -l consul -c '/opt/consul/daemons.py start -- -config-dir=/etc/consul.d'"
 $ bundle install --path vendor/bundle
 $ bundle exec rake spec:server
 $ bundle exec rake spec:client
