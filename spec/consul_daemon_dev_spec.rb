@@ -1,9 +1,8 @@
-require 'serverspec'
-set :backend, :exec
+require "spec_helper_#{ENV['SPEC_TARGET_BACKEND']}"
 
-describe command("consul members -rpc-addr=#{ENV['CONSUL_BIND_ADDR']}:8400") do
+describe command("consul members -rpc-addr=#{ENV['CONSUL_CLIENT_ADDR']}:8400") do
   its(:stdout) { should match /#{ENV['CONSUL_BIND_ADDR']}:8301/ }
-  its(:stdout) { should match /travis_consul/ }
+  its(:stdout) { should match /#{ENV['CONSUL_NODE_NAME']}/ }
   its(:stdout) { should match /server/ }
   its(:exit_status) { should eq 0 }
 end
