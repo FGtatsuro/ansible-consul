@@ -14,3 +14,4 @@ ansible_user=vagrant
 ansible_host=127.0.0.1
 python_requirements_update_existing_pip=yes
 consul_daemon_cap_net_bind=yes
+consul_config_src_dir=../tests/consul.d/

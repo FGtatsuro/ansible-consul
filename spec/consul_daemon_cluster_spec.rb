@@ -29,7 +29,6 @@ describe file('/var/log/consul/stdout.log') do
 end
 
 describe file('/var/log/consul/stderr.log') do
-  its(:size) { should eq 0 }
   it { should be_owned_by ENV['CONSUL_OWNER'] }
   it { should be_grouped_into ENV['CONSUL_GROUP'] }
 end
