@@ -18,7 +18,7 @@
 {% if consul_default_config_start_join is defined %}
   ,"start_join": ["{{ consul_default_config_start_join }}"]
 {% endif %}
-{% if consul_default_config_server is defined %}
+{% if (consul_default_config_server is defined) and (consul_default_config_server | bool) %}
   ,"server": true
 {% endif %}
 }

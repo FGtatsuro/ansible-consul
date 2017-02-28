@@ -1,0 +1,6 @@
+---
+consul_default_config_node_name: 'vm_client'
+consul_default_config_bind_addr: '192.168.50.3'
+consul_default_config_client_addr: '192.168.50.3'
+consul_default_config_dns_port: 53
+consul_default_config_start_join: '192.168.50.2'

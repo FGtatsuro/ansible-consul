@@ -53,6 +53,12 @@ describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
   its(:content) { should match /#{Regexp.escape('"data_dir": "/tmp/consul"')}/ }
 end
 
+describe file(ENV['CONSUL_CONFIG_REMOTE_DIR']) do
+  it { should be_directory }
+  it { should be_owned_by ENV['CONSUL_OWNER'] }
+  it { should be_grouped_into ENV['CONSUL_GROUP'] }
+end
+
 if ENV['CONSUL_NODE_NAME'] then
   describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
     its(:content) { should match /#{Regexp.escape("\"node_name\": \"#{ENV['CONSUL_NODE_NAME']}\"")}/ }
@@ -63,14 +69,22 @@ else
   end
 end
 
-if ENV['HAS_CONSUL_ADDR'] then
+if ENV['CONSUL_BIND_ADDR'] then
   describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
-    its(:content) { should match /bind_addr/ }
-    its(:content) { should match /client_addr/ }
+    its(:content) { should match /"bind_addr": "#{ENV['CONSUL_BIND_ADDR']}"/ }
   end
 else
   describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
     its(:content) { should_not match /bind_addr/ }
+  end
+end
+
+if ENV['CONSUL_CLIENT_ADDR'] then
+  describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
+    its(:content) { should match /"client_addr": "#{ENV['CONSUL_CLIENT_ADDR']}"/ }
+  end
+else
+  describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
     its(:content) { should_not match /client_addr/ }
   end
 end
@@ -98,7 +112,7 @@ end
 
 if ENV['CONSUL_START_JOIN'] then
   describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
-    its(:content) { should match /"start_join": \["#{ENV['CONSUL_BOOTSTRAP_EXPECT']}"\]/ }
+    its(:content) { should match /"start_join": \["#{ENV['CONSUL_START_JOIN']}"\]/ }
   end
 else
   describe file("#{ENV['CONSUL_CONFIG_REMOTE_DIR']}/consul_common.json") do
