@@ -12,3 +12,4 @@ client  ansible_port=2224 ansible_ssh_private_key_file='.vagrant/machines/client
 ansible_connection=ssh
 ansible_user=vagrant
 ansible_host=127.0.0.1
+python_requirements_update_existing_pip=yes
