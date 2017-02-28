@@ -35,7 +35,7 @@ namespace :spec do
       :consul_bind_addr =>  '192.168.50.2',
       :consul_client_addr =>  '192.168.50.2',
       :consul_dns_port  =>  '53',
-      :consul_bootstrap_expect  =>  1,
+      :consul_bootstrap_expect  =>  '1',
       :consul_server  =>  'true',
       :pattern  =>  'spec/consul_spec.rb,spec/consul_daemon_cluster_spec.rb'
     },
