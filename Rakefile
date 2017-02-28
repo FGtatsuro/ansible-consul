@@ -24,6 +24,33 @@ namespace :spec do
       :consul_owner  =>  'consul',
       :consul_group  =>  'consul',
       :pattern  =>  'spec/consul_spec.rb'
+    },
+    {
+      :name =>  'server',
+      :backend  =>  'vagrant',
+      :consul_config_remote_dir =>  '/etc/consul.d',
+      :consul_owner  =>  'consul',
+      :consul_group  =>  'consul',
+      :consul_node_name =>  'vm_server',
+      :consul_bind_addr =>  '192.168.50.2',
+      :consul_client_addr =>  '192.168.50.2',
+      :consul_dns_port  =>  '53',
+      :consul_bootstrap_expect  =>  1,
+      :consul_server  =>  'true',
+      :pattern  =>  'spec/consul_spec.rb,spec/consul_daemon_cluster_spec.rb'
+    },
+    {
+      :name =>  'client',
+      :backend  =>  'vagrant',
+      :consul_config_remote_dir =>  '/etc/consul.d',
+      :consul_owner  =>  'consul',
+      :consul_group  =>  'consul',
+      :consul_node_name =>  'vm_client',
+      :consul_bind_addr =>  '192.168.50.3',
+      :consul_client_addr =>  '192.168.50.3',
+      :consul_dns_port  =>  '53',
+      :consul_start_join  =>  '192.168.50.2',
+      :pattern  =>  'spec/consul_spec.rb,spec/consul_daemon_cluster_spec.rb'
     }
   ]
   if ENV['SPEC_TARGET'] then
