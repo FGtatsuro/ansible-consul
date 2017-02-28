@@ -13,20 +13,28 @@ import subprocess
 import sys
 
 import daemon
-from lockfile.pidlockfile import PIDLockFile
+# Accept several versions of python-daemon
+try:
+    from daemon import pidlockfile
+except ImportError:
+    from daemon import pidfile as pidlockfile
 
 stdout = open('{{ consul_daemon_log_dir }}/stdout.log', mode='a+')
 stderr = open('{{ consul_daemon_log_dir }}/stderr.log', mode='a+')
-pidfile = PIDLockFile('{{ consul_daemon_pid_dir }}/consul.pid')
+pidfile = pidlockfile.TimeoutPIDLockFile(
+    '{{ consul_daemon_pid_dir }}/consul.pid', 60)
 
 cli_context_settings = dict(
-        help_option_names=['-h', '--help'],
-        ignore_unknown_options=True)
+    help_option_names=['-h', '--help'],
+    ignore_unknown_options=True)
 
 
 def do_start(options):
     # NOTE: Set proper PATH environment to access consul command.
-    commands = ['consul', 'agent', '-config-dir={{ consul_config_remote_dir }}'] + options
+    commands = [
+        'consul',
+        'agent',
+        '-config-dir={{ consul_config_remote_dir }}'] + options
     with daemon.DaemonContext(stdout=stdout, stderr=stderr, pidfile=pidfile):
         child_process = subprocess.Popen(commands)
         child_process.communicate()
