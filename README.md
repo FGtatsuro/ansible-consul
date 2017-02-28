@@ -106,9 +106,13 @@ To confirm the behavior of Consul cluster(server-client mode), we run tests on V
 
 ```
 $ pip install ansible
-$ ansible-galaxy install FGtatsuro.python-requirements
+$ ansible-galaxy install FGtatsuro.vagrant
+$ ansible-playbook tests/setup_clusterspec.yml -i tests/inventory -l localhost
 $ vagrant up
 $ ansible-playbook tests/test.yml -i tests/inventory -l cluster
+$ bundle install --path vendor/bundle
+$ bundle exec rake spec:server
+$ bundle exec rake spec:client
 ```
 
 License
