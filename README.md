@@ -118,6 +118,15 @@ $ bundle exec rake spec:server
 $ bundle exec rake spec:client
 ```
 
+Limitation
+----------
+
+- On OSX, root privilege is required for Consul daemon script if you set well-known port(ex. 53) as the value of `consul_default_config_dns_port`.
+
+```
+(OSX) $ sudo /opt/consul/daemons.py start -- -config-dir=/etc/consul.d
+```
+
 License
 -------
 
