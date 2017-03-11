@@ -23,8 +23,13 @@ describe file('/opt/consul/daemons.py') do
   its(:content) { should match /#{Regexp.escape("-config-dir=#{ENV['CONSUL_CONFIG_REMOTE_DIR']}")}/ }
 end
 
-describe package('python-daemon') do
-  it { should be_installed.by(:pip) }
+[
+  'python-daemon',
+  'click'
+].each  do |p|
+  describe package(p) do
+    it { should be_installed.by(:pip) }
+  end
 end
 
 describe file('/var/log/consul') do
