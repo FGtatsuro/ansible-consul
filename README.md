@@ -111,8 +111,8 @@ $ ansible-galaxy install FGtatsuro.vagrant
 $ ansible-playbook tests/setup_clusterspec.yml -i tests/inventory -l localhost
 $ vagrant up
 $ ansible-playbook tests/test.yml -i tests/inventory -l cluster
-$ vagrant ssh server -c "sudo su -l consul -c '/opt/consul/daemons.py start -- -config-dir=/etc/consul.d'"
-$ vagrant ssh client -c "sudo su -l consul -c '/opt/consul/daemons.py start -- -config-dir=/etc/consul.d'"
+$ vagrant ssh server -c "sudo su -l consul -c '/opt/consul/daemons.py start'"
+$ vagrant ssh client -c "sudo su -l consul -c '/opt/consul/daemons.py start'"
 $ bundle install --path vendor/bundle
 $ bundle exec rake spec:server
 $ bundle exec rake spec:client
@@ -124,7 +124,7 @@ Limitation
 - On OSX, root privilege is required for Consul daemon script if you set well-known port(ex. 53) as the value of `consul_default_config_dns_port`.
 
 ```
-(OSX) $ sudo /opt/consul/daemons.py start -- -config-dir=/etc/consul.d
+(OSX) $ sudo /opt/consul/daemons.py start
 ```
 
 License
