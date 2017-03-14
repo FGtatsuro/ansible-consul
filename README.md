@@ -69,7 +69,7 @@ These values are meaningful only on Linux.
 |consul_sha256|SHA256 signature of Consul archive.|str|40ce7175535551882ecdff21fdd276cef6eaab96be8a8260e0599fadb6f1f5b8|
 |consul_download_tmppath|File path downloaded Consul archive is put temporary.|str|/tmp/consul.zip|
 |consul_bin_dir|Directory path Consul binary is put. The path of Consul binary is `{{ consul_bin_dir }}/consul`.|str|/usr/local/bin|
-|consul_daemon_cap_net_bind|If yes(true), CAP_NET_BIND_SERVICE capability is added to Consul binary. <br>If you want to use a well-known port as `consul_default_config_dns_port`, you must set yes to this variable.|bool|no|
+|consul_daemon_cap_net_bind|If yes(true), CAP_NET_BIND_SERVICE capability is added to Consul binary. <br>If you want to use a well-known port as `consul_default_config_dns_port`, you must set yes to this variable.|bool|It isn't defined in default.|
 
 - `consul_bin_dir` should exist in `PATH` environment variable. Or the daemon script can't work well.
 - If you want to overwrite values, please also check https://www.consul.io/downloads.html.
