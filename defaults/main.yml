@@ -14,4 +14,3 @@ consul_download_url: 'https://releases.hashicorp.com/consul/0.7.5/consul_0.7.5_l
 consul_sha256: '40ce7175535551882ecdff21fdd276cef6eaab96be8a8260e0599fadb6f1f5b8'
 consul_download_tmppath: '/tmp/consul.zip'
 consul_bin_dir: '/usr/local/bin'
-consul_daemon_cap_net_bind: no

@@ -25,7 +25,7 @@
       path: "{{ consul_bin_dir }}/consul"
       capability: cap_net_bind_service+ep
       state: present
-    when: consul_daemon_cap_net_bind | bool
+    when: (consul_daemon_cap_net_bind is defined) and (consul_daemon_cap_net_bind | bool)
   become: yes
 - block:
   - name: Ensure consul_group exists
