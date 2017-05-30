@@ -4,7 +4,7 @@ require "spec_helper_#{ENV['SPEC_TARGET_BACKEND']}"
 # Node       Address            Status  Type    Build  Protocol  DC
 # vm_server  192.168.50.2:8301  alive   server  0.8.3  2         dc1
 # vm_client  192.168.50.3:8301  alive   client  0.8.3  2         dc1
-describe command("consul members -rpc-addr=#{ENV['CONSUL_CLIENT_ADDR']}:8400") do
+describe command("consul members -http-addr=#{ENV['CONSUL_CLIENT_ADDR']}:8500") do
   # Specified settings in Rakefile
   its(:stdout) { should match /vm_server\s*192.168.50.2:8301\s*alive\s*server/ }
   its(:stdout) { should match /vm_client\s*192.168.50.3:8301\s*alive\s*client/ }
