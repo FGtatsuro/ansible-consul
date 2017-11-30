@@ -65,8 +65,8 @@ These values are meaningful only on Linux.
 
 |name|description|type|default|
 |---|---|---|---|
-|consul_download_url|Download URL of Consul archive.|str|https://releases.hashicorp.com/consul/0.8.3/consul_0.8.3_linux_amd64.zip|
-|consul_sha256|SHA256 signature of Consul archive.|str|40ce7175535551882ecdff21fdd276cef6eaab96be8a8260e0599fadb6f1f5b8|
+|consul_download_url|Download URL of Consul archive.|str|https://releases.hashicorp.com/consul/1.0.1/consul_1.0.1_linux_amd64.zip|
+|consul_sha256|SHA256 signature of Consul archive.|str|eac5755a1d19e4b93f6ce30caaf7b3bd8add4557b143890b1c07f5614a667a68|
 |consul_download_tmppath|File path downloaded Consul archive is put temporary.|str|/tmp/consul.zip|
 |consul_bin_dir|Directory path Consul binary is put. The path of Consul binary is `{{ consul_bin_dir }}/consul`.|str|/usr/local/bin|
 |consul_daemon_cap_net_bind|If yes(true), CAP_NET_BIND_SERVICE capability is added to Consul binary. <br>If you want to use a well-known port as `consul_default_config_dns_port`, you must set yes to this variable.|bool|It isn't defined in default.|
