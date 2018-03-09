@@ -12,6 +12,7 @@ matrix:
       # Ref. https://langui.sh/2015/07/24/osx-clang-include-lib-search-paths/
       osx_image: xcode8
       install:
+        - sudo ln -s /usr/local/bin/pip2 /usr/local/bin/pip
         - sudo pip install -U setuptools
         - sudo pip install ansible
         - ansible-galaxy install FGtatsuro.python-requirements
