@@ -44,6 +44,7 @@ The variables we can use in this role.
 |consul_default_config_bootstrap_expect|In Consul configuration, it collesponds to [bootstrap_expect](https://www.consul.io/docs/agent/options.html#bootstrap_expect).|int|It isn't defined in default.|
 |consul_default_config_start_join|In Consul configuration, it collesponds to [start_join](https://www.consul.io/docs/agent/options.html#start_join). <br>But you can add only 1 server in default config.|str|It isn't defined in default.|
 |consul_default_config_server|In Consul configuration, it collesponds to [server](https://www.consul.io/docs/agent/options.html#server). |bool|It isn't defined in default.|
+|consul_default_config_recursors|In Consul configuration, it collesponds to [recursors](https://www.consul.io/docs/agent/options.html#recursors). <br>But you can add only 1 server in default config.|str|It isn't defined in default.|
 
 ### Only not-container
 
