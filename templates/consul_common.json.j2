@@ -21,4 +21,7 @@
 {% if (consul_default_config_server is defined) and (consul_default_config_server | bool) %}
   ,"server": true
 {% endif %}
+{% if (consul_default_config_recursors is defined)  %}
+  ,"recursors": ["{{ consul_default_config_recursors }}"]
+{% endif %}
 }
